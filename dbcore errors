@@ -1,0 +1,6 @@
+To check errors you can reference the errors in the splunk 
+
+ https://43583370-63f3-493c-9315-f04c7f7e2a12-bluemix.cloudant.com/iot4i-master-db/_design/iot4i/_view/common-jobs
+{"error":"unknown_query_language","reason":"javascript","ref":4112032074}
+
+index=dbcore host=dbcore.bm-cc-us-south-01 4112032074
