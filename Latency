@@ -1,0 +1,4 @@
+To check how long it takes for a request to go through
+
+index=$cluster_name* account_name=$account_name| eval t=Tt-Tq | timechart span=5m eval(count()/60)
+as throughput, p50(t) as p50, p90(t) as p90, p95(t) as p95, p99(t) as p99
