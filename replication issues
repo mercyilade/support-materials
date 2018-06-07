@@ -1,12 +1,20 @@
 to check if a user have replication:
 
-acurl 'https://mercyilade.cloudant.com/_active_tasks' | jq '.[] | select (.type=="replication")' | jq .
+acurl 'https:/$user_name.cloudant.com/_active_tasks' | jq '.[] | select (.type=="replication")' | jq .
+
+acurl 'https://$user_name.cloudant.com/_active_tasks' | jq '.  | map (select(contains({type:"replication"})))'
 
 To check individual replication in a cluster:
 
-acurl 'https://bm-cc-us-east-01.cloudant.com/_active_tasks' | jq  '. | map (select (contains({user:"a81a5933-af7d-431f-9113-d5b4b0543519-bluemix"})))'
+acurl 'https://$user_name.cloudant.com/_active_tasks' | jq  '. | map (select (contains({user:"a81a5933-af7d-431f-9113-d5b4b0543519-bluemix"})))'
+
+
+acurl 'https://mercyilade.cloudant.com/_active_tasks' | jq '. | map (select(contains({"type":"replication", "doc_id":"ba3ba91cc574b700ac028fdea8752bd2"})))'| jq .
 
 To check a replication in a error state :
 
-acurl 'https://mercyilade.cloudant.com/_replicator/_all_docs?include_docs=true' | jq '.rows  [].doc | select(._replication_state=="error")'
+acurl 'https://$user_name.cloudant.com/_replicator/_all_docs?include_docs=true' | jq '.rows  [].doc | select(._replication_state=="error")'
 
+Using the scheduler:
+
+https://$account_name.cloudant.com/_scheduler/docs/_replicator/e0a520c9d9241067d7873943e503e1eb
