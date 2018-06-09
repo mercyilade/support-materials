@@ -67,9 +67,19 @@ will always tell you where you (pwd stands for print working directory)
 cd
 with no options or parameters, will take you back to your own home directory
 
+cd ~ brings you to your home directory
+
 cd ..
 will take you up one level, getting you one level closer to the / root directory.
 
 ls
 to list the contents of the directory you are in right now.
+
+ls -a shows hidden files 
+ls -l or ls -lah shows all  files and their permissions and in readable form
+
+ls -i shows the inode number
+drwxr-xr-x "d" means directory
+-rw-r--r-- "-" normal file 
+
 
