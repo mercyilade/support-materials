@@ -1,0 +1,75 @@
+tree/ -L 1
+
+Show me only the 1st Level of the directory tree starting at / (root)". 
+The -L option tells tree how many levels down you want to see.
+
+/bin 
+is the directory that contains binaries, that is, some of the 
+applications and programs you can run. 
+
+The /boot 
+directory contains files required for starting your system. no messing
+
+/dev 
+contains device files. Many of these are generated at boot time or even on the fly
+
+/etc
+ dumping ground for system files administrators were not sure where else to put.
+
+/home 
+is where you will find your users' personal directories.
+
+/lib
+is where libraries live. Libraries are files containing code that your applications 
+can use.
+
+ /opt 
+
+The /opt
+directory is often where software you compile (that is, you build yourself
+from source code and do not install from your distribution repositories)
+sometimes lands. 
+
+/proc, 
+like /dev is a virtual directory. It contains information about your computer, such 
+as information about your CPU and the kernel your Linux system is running. As with /dev,
+the files and directories are generated when your computer starts, or on the fly, as 
+your system is running and things change.
+
+/root 
+is the home directory of the superuser (also known as the "Administrator") of the system.
+
+/sbin
+ is similar to /bin, but it contains applications that only the superuser (hence the 
+ initial s) will need. You can use these applications with the sudo command that 
+ temporarily concedes you superuser powers on many distributions. 
+/sbin typically contains tools that can install stuff, delete stuff and format stuff.
+
+/usr
+contains a mish-mash of directories which in turn contain applications, libraries, 
+documentation, wallpapers, icons and a long list of other stuff that need to be 
+shared by applications and services.
+
+/tmp
+contains temporary files, usually placed there by applications that you are running.
+
+/var 
+contains things like logs in the /var/log subdirectories. Logs are files that 
+register events that happen on the system. If something fails in the kernel, it will 
+be logged in a file in /var/log; 
+
+cd name of file 
+will take you to the directory of your choice (cd stands for change directory.
+
+pwd 
+will always tell you where you (pwd stands for print working directory)
+
+cd
+with no options or parameters, will take you back to your own home directory
+
+cd ..
+will take you up one level, getting you one level closer to the / root directory.
+
+ls
+to list the contents of the directory you are in right now.
+
