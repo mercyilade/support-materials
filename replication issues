@@ -6,7 +6,7 @@ acurl 'https://$user_name.cloudant.com/_active_tasks' | jq '.  | map (select(con
 
 To check individual replication in a cluster:
 
-acurl 'https://$user_name.cloudant.com/_active_tasks' | jq  '. | map (select (contains({user:"a81a5933-af7d-431f-9113-d5b4b0543519-bluemix"})))'
+acurl 'https://$cluster_name.cloudant.com/_active_tasks' | jq  '. | map (select (contains({user:"a81a5933-af7d-431f-9113-d5b4b0543519-bluemix"})))'
 
 
 acurl 'https://mercyilade.cloudant.com/_active_tasks' | jq '. | map (select(contains({"type":"replication", "doc_id":"ba3ba91cc574b700ac028fdea8752bd2"})))'| jq .
