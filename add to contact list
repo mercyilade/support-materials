@@ -1,0 +1,9 @@
+To add or remove names in contact list for dedicated customers 
+
+acurl -X POST https://cloudant.cloudant.com/cluster-contacts/cardinal003?rev=2-1f95136571c5efdb578c10ebfe88ba92 
+-H "Content-Type: application/json" -d '
+{
+  "name": "cardinal",
+  "proactive_contact": "ivan.bogomazov@ytech.by,sergei.batiukov@ytech.by",
+  "cluster_admin": "Justin@yondermusic.com, alex@yondermusic.com"
+}'
