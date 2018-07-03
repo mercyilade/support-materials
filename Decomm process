@@ -1,0 +1,25 @@
+first step in Decomm process:
+
+ensure there is a letter from the project office confirming that the cluster should be decomm
+
+check if there are users in the cluster and if they have data.
+
+send an email asking the users to delete their data from their accounts .
+
+if they want us to delete the data, we asked for explicit approval to delete their accounts. We have a standard
+covering letter for that. check 
+
+get approval from Mike Breslin for confirmation of the decomm process
+
+after approval, ask ops to put the cluster in MM
+
+delete all the accounts and databases in the cluster. there is a script provided , add the path in your home directory 
+and use it to delete the files.
+
+after that create a ticket with infra for the decomm process to beginn
+
+remove the contact from cloudant.cloudant.com/cluster-contacts  acurl https://cloudant.cloudant.com/cluster-contacts/bluemix-uk-lloyds001
+{"_id":"bluemix-uk-lloyds001","_rev":"10-1a896e96213fc727452e98186aa4d80b","name":"bluemix-uk-lloyds","proactive_contact"
+:"chidan@us.ibm.com","cluster_admin":""}
+
+after completing all tasks the cluster can be decomm.
