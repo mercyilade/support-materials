@@ -1,0 +1,14 @@
+Thanks for your response.  Cloudant is billed based on two things: 1) Provisioned Throughput Capacity allocated 
+to your instance and 2) Data Usage.  
+
+Provisioned Throughput Capacity means you pay based on how much capacity in 
+available requests/sec you have chosen to apply to your instance(s).  
+The capacity is broken up in three request 
+classes: lookups/sec, writes/sec, and queries/sec.  Capacity configurations come in various sizes and all have 
+the ratio of 100 lookups/sec | 50 writes/sec | 5 queries/sec, with costs evenly split at that ratio, hence why your 
+bill shows that.  
+
+This isn't a metered volume pricing model. Billing is pro-rated hourly so you can toggle the capacity 
+up/down as needed and you pay for the high water mark for a given hour. The documentation at https://console.bluemix.net/
+docs/services/Cloudant/offerings/bluemix.html#ibm-cloud-public should provide more detail on the above.   
+This table below in USD$ also might provide more clarity on the pricing options:
