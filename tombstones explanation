@@ -1,0 +1,15 @@
+Cloudant NoSQL DB does not completely delete the specified document. 
+Instead, it leaves a tombstone with basic information about the document. 
+The tombstone is required so that the delete action can be replicated to 
+other copies of the database. Since the tombstones stay in the database indefinitely, 
+creating new documents and deleting them increases the disk space usage of a database.
+
+2 ways to delete an attachment.
+a). By API, make a DELETE request with the document's latest _rev to
+https://$ACCOUNT.cloudant.com/$DATABASE/$DOCUMENT_ID/$ATTACHMENT.
+b). From dashboard, just remove the content of "_attachments" field and 
+then "Save Changes" to the related doc.
+
+As far as I know, if you delete a big attachment or a doc with a big attachment, 
+it won't release disk space immediately, instead it will release disk space only 
+after auto-compaction(which is a cluster-level setting) has been done on the related database.
