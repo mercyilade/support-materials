@@ -1,0 +1,15 @@
+Complete guide on CCM :
+
+https://graphite.cloudant.com/runbooks/guides/ccm.html
+
+examples of changing plan to billing standard 4
+
+clou account_plan set 5e7d4c31-6b5b-4b3b-ad63-b9733a1c6b84-bluemix billing.tiered.bluemix.standard 50
+
+1. CCM plans are now a base plan times a multiplier 1-50.
+(paid plans)
+2. If someone wants the old `standard.5/Enterprise` plan, put them on `billing.tiered.bluemix.standard.fixed.200`.
+3. For any other throughput requests, we'll make a custom plan specifically for them.
+4. Customers can increase their throughput settings by max 10 units per change (in the 1-50 range) 
+themselves in the dashboard, once per hour.
+5. Customers can decrease their throughput settings by any amount, once per hour.
