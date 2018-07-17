@@ -1,0 +1,4 @@
+ A couch_file processes manages access to the underlying file system for each open database shard and each open view shard.
+
+Under heavy load, a couch_file process might be unable to process messages as fast as it receives them. Our operations team 
+received alerts and immediately took action in clearing up the backlog of couch_files which caused the issues you reported.
