@@ -1,0 +1,12 @@
+
+To track index size statistics, you will want to use the '_info' endpoint, which is documented in the link provided below.
+
+https://console.bluemix.net/docs/services/Cloudant/api/design_documents.html#retrieving-information-about-a-design-document
+
+To do this, simply make a request of the form shown below, substituting the appropriate values for $ACCOUNT, $DATABASE, 
+and $DESIGN-DOC.
+
+curl https://$ACCOUNT.cloudant.com/$DATABASE/_design/$DESIGN-DOC/_info
+
+Then, use the 'disk_size' statistic (size in bytes of the view as stored on disk) to evaluate the size 
+of your indexes over time.
