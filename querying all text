@@ -1,0 +1,14 @@
+As I understand from the problem description provided, you are indexing all fields within a given database using an index similar to the below.
+
+{
+    "type": "text",
+    "index": { }
+}
+
+Generally speaking, indexing all fields within a database is not recommended (especially for large datasets with many fields and/or documents). Doing so is very resource intensive, and can lead to degraded performance at query time.
+
+To improve your overall query response times, I would first recommend analyzing your workflow and determining which fields are queried with greatest frequency. Then, index on those fields specifically as explained in the 'Creating a "type=text" index' section of the documentation provided below.
+
+https://console.bluemix.net/docs/services/Cloudant/api/cloudant_query.html#creating-an-index
+
+Hope that helps. Let me know if you have any questions.
