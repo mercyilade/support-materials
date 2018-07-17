@@ -1,0 +1,8 @@
+our logs show that Cloudant returned HTTP status code 413.
+
+413 - request entity too large.
+
+Maximum individual document size
+
+For documents in a Cloudant NoSQL DB service on IBM Cloud, the maximum size for an 
+individual document is 1 MB. Exceeding this limit causes a 413 error.
