@@ -1,0 +1,11 @@
+Cloudant's certificate is signed by a universally trusted Certificate Authority that is pre-trusted by 
+all browsers, operating systems, and other software systems like the JDK.
+
+Cloudant commits to always publishing a valid (non-expired) TLS certificate signed by a universally
+trusted Certificate Authority.
+
+All customers are strongly discouraged from pinning the current certificate, which is subject to 
+expiration and prompt rotation in the event of compromise.
+
+We therefore recommend that customers use the default certificate bundles for their operating systems 
+and browsers, which will ensure continued secure service through any certificate changes
