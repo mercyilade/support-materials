@@ -20,6 +20,14 @@ Using the scheduler:
 https://$account_name.cloudant.com/_scheduler/docs/_replicator/e0a520c9d9241067d7873943e503e1eb
 
 
+acurl 'https://app5196730.heroku.cloudant.com/_active_tasks' | jq '. | map 
+(select(contains({"type":"replication", "doc_id":"prefilter-new-e9"})))'
+
+acurl https://app5196730.heroku.cloudant.com/_scheduler/docs/_replicator/prefilter-new-e9 | jq .
+
+acurl 'https://app5196730.heroku.cloudant.com/mi-master/_changes?since=now'
+
+
 You are correct that replication processes impose additional load on both the source and target databases. 
 Replication operates by comparing document versions across the source and target databases through requests to
 the _changes feed. If a more recent version of a document is found on the source database, it is then copied 
