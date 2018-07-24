@@ -1,0 +1,7 @@
+source and target clusters are firewalled, cant reach one from another, 
+user move replication need to run from a cluster both cluster can reach. 
+I ran user move as below:
+
+clou  user move kp4-dedicated-broker bm-kaiser012 --replication_cluster cloudant001
+
+Cloudant001 is a cluster that can talk to all clusters .
