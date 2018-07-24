@@ -13,3 +13,7 @@ clou account_plan set 5e7d4c31-6b5b-4b3b-ad63-b9733a1c6b84-bluemix billing.tiere
 4. Customers can increase their throughput settings by max 10 units per change (in the 1-50 range) 
 themselves in the dashboard, once per hour.
 5. Customers can decrease their throughput settings by any amount, once per hour.
+
+If you want to check the history of plans for a customer 
+acurl 'https://cloudant.cloudant.com/account_plan_history/_all_docs?
+startkey="49211021-c12a-47c5-b9fe-7a6c3d2fea4d-bluemix"&include_docs=true' | jq . | more
