@@ -2,3 +2,10 @@ To check how long it takes for a request to go through
 
 index=$cluster_name* account_name=$account_name| eval t=Tt-Tq | timechart span=5m eval(count()/60)
 as throughput, p50(t) as p50, p90(t) as p90, p95(t) as p95, p99(t) as p99
+
+If views are building, check if view_update have been bypassed:
+
+
+acurl https://bm-whisk001.cloudant.com/_node/dbcore@db4.bm-whisk001.cloudant.net/_config | jq .
+
+if not ask ops if they can do it to help the indexing build quickly
