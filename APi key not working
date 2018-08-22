@@ -1,0 +1,39 @@
+If you get a ticket where it is stipulated that api key is not working. check these info and if the api is not 
+replicated from the uses db ask ops to transfer it manually
+
+The api keys can be seen from the dashboard but looking at the apikeys
+$ acurl https://businessrules.cloudant.com/prod-eu-gb-res-xom-b09ad3cb/_security | jq .
+{
+  "_id": "_security",
+  "cloudant": {
+    "theredifelsonseptielfpas": [
+      "_admin",
+      "_reader",
+      "_writer",
+      "_design"
+    ]
+  }
+}
+
+$ acurl https://meritage.cloudant.com/users/theredifelsonseptielfpas | jq .
+{
+  "_id": "theredifelsonseptielfpas",
+  "_rev": "1-5e5c4e29594647d724048471d8da5ac5",
+  "active": true,
+  "email": "",
+  "roles": [],
+  "type": "user",
+  "allowed_clusters": null,
+  "username": "theredifelsonseptielfpas",
+  "password_scheme": xxxx
+  "salt": "xxxxx",
+  "password_sha": "xxxx"
+}
+
+$ acurl https://ibm-businessrules001.cloudant.com/users/theredifelsonseptielfpas | jq .
+{
+  "error": "not_found",
+  "reason": "missing"
+}
+
+To address the immediate issue the  user doc has been manually written to the target cluster (extracted from meritage).
