@@ -1,0 +1,11 @@
+When a customer complains a document have been deleted, we can check in splunk and also check 
+the splunk history to find out if the documents have been deleted .
+checkin g the revs history:
+
+acurl -s https://ac9feebb-1d47-4ab0-99ab-5b44900e6d3f-bluemix.cloudant.com/$name of DB/$name of document?revs_info=true&deleted=true | jq .
+pick the latest rev and check if you can see if it is actually deleted :
+
+acurl -s https://ac9feebb-1d47-4ab0-99ab-5b44900e6d3f-bluemix.cloudant.com/mldeployment-prod/bdfe2457-ef6b-40c5-9cf5-195a1313f8e4?rev=3-9807061843fadb671412337183b67172 | jq .
+
+splunk will also show if it is deleted but if it is not displayed in splunk  it means a bulk delete was made 
+https://cloudant.fogbugz.com/f/cases/110658/
