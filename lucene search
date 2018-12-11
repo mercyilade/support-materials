@@ -1,0 +1,13 @@
+when querying strings, double quotes are required ir it will be treated as numbers 
+
+acurl -s 'https://qton.cloudant.com/ch4_dev_qton_com/_design/job-search/_search/quoting?q=Jobdata_ovo_mpan_smsdf_mpan:1100013839015'
+{"total_rows":0,"bookmark":"g2o","rows":[]}
+ro results is emitted
+
+
+
+using double quotes will emit the reqired results :
+acurl -s 'https://qton.cloudant.com/ch4_dev_qton_com/_design/job-search/_search/quoting?q=Jobdata_ovo_mpan_smsdf_mpan:"1100013839015"'
+
+reference case:
+https://cloudant.fogbugz.com/f/cases/114313/
