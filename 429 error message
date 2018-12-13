@@ -1,0 +1,15 @@
+if you are doing any user move and you are getting **429 error message**
+you have to apply a rate limit bypass to the account owner
+
+**remember** to revert the changes when you complete the user move
+
+
+steps
+https://cloudant.cloudant.com/dashboard.html#database/users/_all_docs
+look up the account details
+include this line 
+"rate_limit_bypass": true,
+
+do lb refresh for source and target cluster
+
+https://cloudant.fogbugz.com/f/cases/113847/
