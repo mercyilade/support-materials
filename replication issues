@@ -1,5 +1,8 @@
 to check if a user have replication:
 
+acurl -s https://bm-cc-us-south-01.cloudant.com/_active_tasks | jq 'map(select(.type == "replication"))'
+
+
 acurl 'https:/$user_name.cloudant.com/_active_tasks' | jq '.[] | select (.type=="replication")' | jq .
 
 acurl 'https://$user_name.cloudant.com/_active_tasks' | jq '.  | map (select(contains({type:"replication"})))'
