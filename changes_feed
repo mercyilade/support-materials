@@ -1,0 +1,19 @@
+
+If you receive a question on changes feed:
+you can check for changes feed by using this curl
+
+acurl 'https://mercyilade.cloudant.com/animaldb/_changes' | jq .
+
+you can use the since parameter and the feed parameter so that you don't need to loop through all the changes
+
+ acurl 'https://mercyilade.cloudant.com/animaldb/_changes?feed=continuous&since
+ ="42-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdUhJMtJLykxPyilN1UvOyS9NScwr0ctLLckBKmRKZEiy____
+ f1YGcyJXLlCA3cQ8ycQ41YiwdlQrTHBbkeQAJJPqobawQGwxNEyxMDMnbALRHsljAZIMDUAKaNF-
+ kE08YJtSkpMS0ywsqOgfiE0HIDaB_SQAtsnC3MQ81ciUsClZAMAWh0A"
+'
+
+The "feed" argument is a great approach to retrieve the updates, but can we use feed with a sequence id
+(at least a hardcoded one just to jump the initial data)? 
+
+
+CS0136821 for more info 
