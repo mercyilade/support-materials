@@ -1,0 +1,6 @@
+CD-- is not indicative of a load balancer issues. it means that they closed the connection on the
+client side either due to an issue on their end or they have an internal timeout which was reached
+due to slow response on our end. if it's the latter, we should look into any potential ongoing latency on our end.
+
+index=payrange002* account_name="payrange-db" termination_state=CD-- NOT _changes
+
