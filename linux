@@ -1,0 +1,2 @@
+delete a directory and it's content 
+rm -r name of directory
