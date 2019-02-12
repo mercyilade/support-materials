@@ -19,6 +19,8 @@ git checkout <name of branch>
 git status will tell you if there are any changes to your branch 
 
 
+git pull : bring the changes in the remote repository to where I keep my own code locally
+
 # This is an <h1> tag
 ## This is an <h2> tag
 ###### This is an <h6> tag
