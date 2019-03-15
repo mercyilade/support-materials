@@ -9,3 +9,18 @@ If views are building, check if view_update have been bypassed:
 acurl https://bm-whisk001.cloudant.com/_node/dbcore@db4.bm-whisk001.cloudant.net/_config | jq .
 
 if not ask ops if they can do it to help the indexing build quickly
+
+how to check for latency for a all  view 
+index=smrt003* account_name=smrt-prod5 _view | eval t=Tt-Tq | timechart p50(t) as p50, p90(t) 
+as p90, p95(t) as p95, p99(t) as p99
+
+
+how to check for latency for a particular view 
+index=smrt003* account_name=smrt-prod5 "_view/route_within_dates" | eval t=Tt-Tq | 
+timechart p50(t) as p50, p90(t) as p90, p95(t) as p95, p99(t) as p99
+
+
+how to check for latency for all view except a particular view 
+
+index=smrt003* account_name=smrt-prod5 _view NOT "_view/route_within_dates" | eval t=Tt-Tq | 
+timechart p50(t) as p50, p90(t) as p90, p95(t) as p95, p99(t) as p99
