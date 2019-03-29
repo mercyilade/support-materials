@@ -1,0 +1,12 @@
+When customer asks us to make changes in order to resolve conflicts, we need to check if stem interactive have been disabled:
+
+acurl https://bm-kone001.cloudant.com/_node/dbcore@db1.bm-kone001.cloudant.net/_config | jq .couchdb.stem_interactive_updates
+false 
+
+curl https://bm-kone001.cloudant.com/_node/dbcore@db2.bm-kone001.cloudant.net/_config | jq .couchdb.stem_interactive_updates
+false
+
+curl https://bm-kone001.cloudant.com/_node/dbcore@db3.bm-kone001.cloudant.net/_config | jq .couchdb.stem_interactive_updates
+false
+
+That means the customer can go ahead and resolve the conflicts.
