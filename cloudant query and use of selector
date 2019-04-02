@@ -1,0 +1,66 @@
+When using the _find parameters:
+You can put the json doc in a text file and save it :
+
+{
+   "fields": [
+     "_id",
+     "_rev"
+   ],
+   "selector": {
+     "$and": [
+       {
+         "kind": {
+           "$in": [
+             "model",
+             "function",
+             "pipeline_version",
+             "wdp_pipeline",
+             "experiments",
+             "runtimes",
+             "libraries"
+           ]
+         }
+       },
+       {
+         "tenantId": {
+           "$eq": "edfba3e9-4b83-45de-a69b-1fc5b0e35da9"
+         }
+       },
+       {
+         "space_guid": {
+           "$eq": "9641d8e9-0a12-4b84-959f-8abb796a0853"
+         }
+       }
+     ]
+   }
+ }
+  and then add it to your query parameter as -d@/Users/mercyilade/downloads/cs0201360.json
+
+curl  -u 'adm-mercyilade' -X POST https://bm-cc-dedicated089.cloudant.com/mlrepository-prod/_find
+-H "x-cloudant-user: 4b9c3409-dbe3-4147-9e86-406d248dbea5-bluemix" -Hhost:db1.bm-cc-dedicated089.cloudant.com 
+-H "Content-Type: application/json" -d@/Users/mercyilade/downloads/cs0201360.json
+Enter host password for user 'adm-mercyilade':
+{"docs":[
+],
+"bookmark": "nil"}
+
+You can check the indexes used by using the _explain endpoints:
+
+curl  -u 'adm-mercyilade' -X POST https://bm-cc-dedicated089.cloudant.com/mlrepository-prod/_explain  
+-H "x-cloudant-user: 4b9c3409-dbe3-4147-9e86-406d248dbea5-bluemix" -Hhost:db1.bm-cc-dedicated089.cloudant.com 
+-H "Content-Type: application/json" -d@/Users/mercyilade/downloads/cs0201360.json
+
+
+{"dbname":"4b9c3409-dbe3-4147-9e86-406d248dbea5-bluemix/mlrepository-prod",
+"index":{"ddoc":"_design/pipeline-indexes","name":"tenant-kind-index","type":"json","partitioned":false,"def"
+:{"fields":[{"tenantId":"asc"},{"kind":"asc"}]}},"partitioned":false,
+"selector":{"$and":[{"kind":{"$in":["model","function","pipeline_version","wdp_pipeline","experiments","runtimes","libraries"]}},
+{"tenantId":{"$eq":"edfba3e9-4b83-45de-a69b-1fc5b0e35da9"}},{"space_guid":{"$eq":"9641d8e9-0a12-4b84-959f-8abb796a0853"}}]},
+"opts":{"use_index":[],"bookmark":"nil","limit":10000000000,"skip":0,"sort":{},"fields":["_id","_rev"],"partition":"","r":[49],
+"conflicts":false,"stale":false,"update":true,"stable":false,"execution_stats":false},"limit":10000000000,"skip":0,"fields":
+["_id","_rev"],"mrargs":{"include_docs":true,"view_type":"map","reduce":false,"partition":null,"start_key":["edfba3e9-4b83-45de-a69b-1fc5b0e35da9"],
+"end_key":["edfba3e9-4b83-45de-a69b-1fc5b0e35da9","<MAX>"],"direction":"fwd","stable":false,"update":true,"conflicts":"undefined"}}
+➜  ~ 
+
+
+
