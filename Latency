@@ -24,3 +24,12 @@ how to check for latency for all view except a particular view
 
 index=smrt003* account_name=smrt-prod5 _view NOT "_view/route_within_dates" | eval t=Tt-Tq | 
 timechart p50(t) as p50, p90(t) as p90, p95(t) as p95, p99(t) as p99
+
+
+check as well if there is a spike in database reads 
+Read/write load increased exponentially on bm-kaiser007 over the past week. The cluster was not properly configured to
+handle such load. This presented as increased latency to clients. The ultimate cause of this latency was the fact that 
+the internal IOQ system was artificially limiting the cluster's ability to process read/write work. 
+We changed the configuration for read/write requests to bypass the IOQ system entirely, which greatly improved latency 
+on the cluster.(CCM cluster)
+
