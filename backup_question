@@ -1,0 +1,18 @@
+When asked about deprecated backup
+
+ To start with, we no longer support the enterprise backup strategy you're employing here. That feature never made 
+ it out of beta and we're no longer able to create new backup schedules internally. 
+ This does not affect any currently running schedules, if you have any before
+
+Going forward backups are meant to be handled self service on the client side idealy using Couchbackup following the 
+steps outlined in our documentation seen here (https://console.bluemix.net/docs/services/Cloudant/guides/
+backup-cookbook.html#cloudant-backup-and-recovery).
+
+On to the questions:
+
+1. The legacy backup solution you're using does not support rolling forward. It supports point-in-time restores, 
+but nothing more intricate than that.
+2. No, the backup solution leverages Cloudant replication to roll a database back to an
+
+individual point in time. While it is incremental, and will only replicate the delta between two points in time,
+it cannot operate at a more granular level than that.
