@@ -1,0 +1,8 @@
+how to check for views in a database using splunk 
+
+index=payrange002* db_name=vendnext_new_no_auth _view | stats count by db_request | sort count 
+
+This will allow the customer to have a look at his views and see which one to delete in order to free disk space and also check if 
+it is worthwhile to keep the views or delete it. 
+
+
