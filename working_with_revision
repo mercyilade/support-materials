@@ -1,0 +1,9 @@
+How to get old revision numbers 
+
+if it is not there 
+
+ old revisions remain available only as long as it takes for compaction to run again on the cluster. 
+ That time period can be anywhere from a few seconds to a few hours depending on the configuration and workload 
+ for the cluster. In general though, if you update a document, you should treat old revisions as gone.
+ If your application has a need to keep old versions of documents around, we recommend using immutable documents 
+ that can be referenced later.
