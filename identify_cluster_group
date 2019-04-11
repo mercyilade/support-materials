@@ -1,0 +1,10 @@
+How to identify cluster group, this is important when you want to transfer a cloudant account to another cloudant account
+
+acurl -s https://cloudant.cloudant.com/clusters/cldt-accountstaging001 | jq '{bluemix, ccm, clustergroup, tenancy}'
+
+acurl -s https://cloudant.cloudant.com/clusters/ibm-isc001 | jq '{bluemix, ccm, clustergroup, tenancy}'
+
+moving accounts from non eu cloud to eu clusters is not straight forward. There are some manual steps to take 
+
+acurl -s https://cloudant.cloudant.com/clusters/ibm-isc002 | jq '{bluemix, ccm, clustergroup, tenancy}'
+
