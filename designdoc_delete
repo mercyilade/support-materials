@@ -13,5 +13,13 @@ check also if there is any PUT request to recreate the desing doc :
 index=ibm-smarterworkforce001* account_name=swfscpub db_name=tfp_master 
 http_method=PUT sc_dd_exportCache earliest=03/01/2019:00:00:00
 
+
+
+index="ibm-smarterworkforce001*" _design/sc_dd_exportCache db_name=tfp_master account_name=swfscpub 
+| timechart span=1d count by status_code
+
+index="ibm-smarterworkforce001*" _design/sc_dd_exportCache db_name=tfp_master account_name=swfscpub  http_method=POST OR  
+http_method=PUT | timechart  span=2h count by status_code
+
 If there is no hit , get back to the customer and ask if they can provide time stamps when the delete occurred.
 
