@@ -1,0 +1,38 @@
+question
+
+
+My team was wondering about the possibility of this scenario working:
+
+Imagine we have a user database called user-1234.
+
+At some point, we want to clean up the tombstones in that user database, so we replicate the data - 
+excluding the tombstones - to a new database called user-1234-new.
+
+After that happens, is there any way we can configure Cloudant to pass any calls to user-1234 along to user-1234-new, 
+either by a 3xx redirect or some other technique?
+
+
+Response
+
+ou would have to implement a redirect at the application side, as Cloudant does not offer this functionality.
+
+Generally speaking, when creating a new database as part of conflict cleanup, there are two options:
+
+A) When the replication from old -> new databases is complete and you have verified that the new database contains all desired data, do the following:
+
+- Change your application code to point to the new database ('user-1234-new').
+- Delete the original database ('user-1234').
+
+B) Or, if you want to retain the original name of the database, do the following:
+
+- Change your application code to point to the new database ('user-1234-new').
+- Delete the original database ('user-1234') and recreate a new database with the same name ('user-1234').
+- Replicate from the new database ('user-1234-new') to the database that you just recreated ('user-1234').
+- Verify that the recreated database with the original name ('user-1234') contains all desired data and change 
+your application code to point this database.
+- Delete the 'user-1234-new' database.
+
+More information on how to do this is available in the "Simple removal of 'tombstone' documents" 
+section of the documentation linked below.
+
+https://cloud.ibm.com/docs/services/Cloudant/api?topic=cloudant-documents#tombstone-documents
