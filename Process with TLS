@@ -5,3 +5,9 @@ we need to check what version and this can be gotten from splunk
 index=bm-cc-us-south-03* account_name=38948dcc-16d0-44a0-8c10-1283f5d72283-bluemix user_agent!="cloudant/*" | chart count by ssl_version
 
 This will show if there are any request from TLS
+
+
+another example will be 
+
+index=ibm-smarter* account_name!=*ibm-smarterworkforce*  
+ssl_version=TLSv1 | top  limit=20000 index, account_name, db_name, user_agent, ssl_version,client_ip
