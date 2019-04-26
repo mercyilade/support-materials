@@ -1,0 +1,32 @@
+couch_file processes run inside the Erlang VM of the Cloudant database engine.
+couch_file processes read from and write to the database files.
+Processes in an Erlang VM communicate by sending messages and receiving messages in their message queue. 
+
+When couch_file processes receive messages at a higher rate than they can deal with them, the number of 
+messages in their message queue keeps growing, and that is what we mean by a couch_file backup. 
+It happens when there is heavy I/O workload.
+
+Heavy I/O workload occurs when requests are run which necessitate the database engine reading all of the documents 
+in the database, or a large subset of the documents in the database.
+The more such requests are being executed at a given time, the heavier the I/O workload.
+
+I understand that earlier in this case a certain Cloudant Query was identified that did not have a supporting
+Cloudant Query index, so to execute that query necessitated the Cloudant database engine to read all the documents
+in the database and so do a lot of I/O.
+You can take the selector for each Cloudant Query request you run, and POST it to the _explain endpoint 
+(instead of to the _find endpoint) to get a report of how the Cloudant database engine would execute that query:
+ https://cloud.ibm.com/docs/services/Cloudant?topic=cloudant-query#explain-plans
+It reports what Cloudant Query index would be used to execute the query. The more selective the index, i.e. 
+the fewer the documents that need to be read to execute the query using the index, the better. 
+
+If there is no Cloudant Query that can be used to execute the query, the output of the _explain 
+endpoint contains "_all_docs" in the index.name field, and all the documents in the database must be 
+scanned to execute that query.
+
+And it is not only Cloudant Query requests that might involve heavy IO. For example, 
+doing GET _all_docs on a sizeable database also involves heavy I/O.
+
+The body of POST requests is not recorded in the Cloudant log.
+Although it is logged when each POST _find (Cloudant Query) request was issued, the selector that 
+was posted is not logged. And I'm afraid that the API key or credentials that were used to execute 
+the request are not logged either.
