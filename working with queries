@@ -1,0 +1,61 @@
+working with queries, when a customer reports an issue with a cloudant query. check the index using the _explain to 
+see which index the query is using.
+
+acurl -X POST https://magnum.cloudant.com/logs/_explain -H "Content-Type:application/json" -d@/Users/mercyilade/new.json | jq .
+{
+  "dbname": "magnum/logs",
+  "index": {
+    "ddoc": "_design/e859392ed0e5daad64e0ed129b04b3858f5e6177",
+    "name": "all-text",
+    "type": "text",
+    "partitioned": false,
+    "def": {
+      "default_analyzer": "keyword",
+      "default_field": {
+        "enabled": false
+      },
+  The index is using the `all-text` index which is not recommended as written down in 
+Thanks for the additional information,I saw that you are using  all text index which is usually resource consuming for a large database as you can see from the link attached below:
+
+https://cloud.ibm.com/docs/services/Cloudant/api?topic=cloudant-query#the-index-field
+
+It will be better to create an index for the field timestamp as seen below:
+
+{
+  "index": {
+      "fields": [
+        "timestamp"
+      ]
+  },
+  "type": "json"
+}
+
+Best,
+
+create a .json file and populate it with the selector uswed in running the query.
+
+{
+  "selector": {
+    "$and": [
+        {
+          "timestamp": {
+              "$gte": "2018-10-17T00:00:00.000Z"
+          }
+        },
+        {
+          "timestamp": {
+              "$lt": "2018-10-18T00:00:00.000Z"
+          }
+        }
+    ]
+  },
+  "fields": [
+    "_id",
+    "timestamp",
+    "messageId"
+  ],
+  "limit": 10
+}
+
+https://cloudant.fogbugz.com/f/cases/118130/
+https://cloudant.fogbugz.com/f/cases/120198/#BugEvent.1104380
