@@ -1,0 +1,21 @@
+When we get a request to move a user from a non eu cluster  to an eu cluster, these steps must be followed or else the
+account will experience issues 
+
+
+1) create a documents for each account in https://bm-cc-eu-de-01.cloudant.com/users 
+(based on the documents that already exist for those accounts in https://meritage.cloudant.com/users) 
+
+2) clou user migrate 
+
+3) clou user move
+
+4) delete the documents for each of those accounts from https://meritage.cloudant.com/us
+
+Remember when creating the document remove the rev before creating the doc in https://bm-cc-eu-de-01.cloudant.com/users 
+or else it will fail.
+
+go to https://bm-cc-eu-de-01.cloudant.com/dashboard.html#database/users/_all_docs 
+create the doc there 
+
+delete the doc from 
+https://meritage.cloudant.com/dashboard.html#database/users/_all_docs
