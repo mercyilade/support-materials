@@ -2,6 +2,7 @@ If a customer complains about rewind, we can check using this splunk parameter:
 Changes feed rewinds if a node is rebooted check ops-alerts if there was any nodes reboot
 
 index="dbcore" host="*.qton001" "uuid prefix mismatch"
+index="dbcore" host="*.qton001" seq
 
 
 The changes feed at Cloudant is different to the one you might know from CouchDB (prior to 2.0), because our databases are
