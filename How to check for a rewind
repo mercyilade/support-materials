@@ -1,0 +1,23 @@
+If a customer complains about rewind, we can check using this splunk parameter:
+Changes feed rewinds if a node is rebooted check ops-alerts if there was any nodes reboot
+
+index="dbcore" host="*.qton001" "uuid prefix mismatch"
+
+
+The changes feed at Cloudant is different to the one you might know from CouchDB (prior to 2.0), because our databases are
+sharded and fault-tolerant.
+
+You will always receive every update made after your `since` parameter but the order you receive them in between `_changes` 
+calls will not be the same. In addition, it might be necessary for us to send changes from before the `since` parameter 
+(this happens if we fail over to a different copy of a shard, if the copy you were previously using became unavailable or lost).
+
+Our sequence values are also different. They are strings encoding the sequences of the underlying shards. You should treat
+seq values opaquely and you cannot meaningfully compare them without decoding them. We prefix the sum of the sequence values 
+of the underlying shards in order to be compatible with the replicator in older versions of CouchDB. 
+
+
+https://github.ibm.com/Brian-Wilkins/cloudant-support-notes/blob/master/whythesamechangemightappearmorethanonce
+withdifferentsequencenumbersinthechangesfeed.txt
+more info 
+https://cloudant.fogbugz.com/f/cases/120291
+https://cloudant.fogbugz.com/f/cases/119663/#BugEvent.1099653
