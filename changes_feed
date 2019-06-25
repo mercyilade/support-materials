@@ -15,5 +15,7 @@ you can use the since parameter and the feed parameter so that you don't need to
 The "feed" argument is a great approach to retrieve the updates, but can we use feed with a sequence id
 (at least a hardcoded one just to jump the initial data)? 
 
+index="dbcore" host="*.qton001" seq | rex "qton/(?<database>[^\.]*)" | stats count by database
+
 
 CS0136821 for more info 
