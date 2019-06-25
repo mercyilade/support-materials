@@ -1,0 +1,31 @@
+If a customer ask when indexing will be completed .
+use this formula to calculate it
+
+this is my calculation
+changes pending 7.20   15mil
+changes pending 8.00    10mil
+
+
+index processed in 40mins = 5mil
+
+rate of indexing (change process per min )5000000/40
+=125000
+
+time to complete indexing  
+10mil/125000 =80mins 
+
+
+changes pending first time stamp 
+-
+changes pending second time stamp
+
+= indexed processed in minutes
+
+Rate of indexing = indexed processed in mins/difference in timestamps
+
+time to complete indexing ==second changes pending/rate of indexing 
+
+again this is an estimate all things being equal 
+
+for better accuracy take a larger sample.
+
