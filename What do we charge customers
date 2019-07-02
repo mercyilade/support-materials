@@ -1,0 +1,42 @@
+When customers ask what they are charged for ?
+
+ we charge customers for storage based on the sizes.external figure returned by GET /db
+ for example 
+ 
+ acurl -s https://4c6e48e1-f77b-454b-b086-1a62e2601266-bluemix.cloudant.com/xaas-queue | jq .
+ 
+ "purge_seq": 0,
+  "sizes": {
+    "file": 3493146500,
+    "external": 2319765815, -> this is what we charge the customer . size.external 
+    "active": 1877914278
+  },
+  "props": {},
+  "other": {
+    "data_size": 2319765815
+  },
+  "doc_del_count": 2028494,
+  "doc_count": 13,
+  "disk_size": 3493146500,
+  "disk_format_version": 8,
+  "data_size": 1877914278,
+  "compact_running": false,
+  "cluster": {
+    "q": 16,
+    
+    The reason why your disk storage size might be higher than you expect could be because the space taken up 
+    by deleted documents counts towards the database size.
+
+In your database, although I found few (4) non-deleted documents (doc_count) there are many
+(1991816) deleted documents (doc_del_count), as seen in this outout of the the "GET /$DATABASE"
+API (the API is described at https://cloud.ibm.com/docs/services/Cloudant?topic=cloudant-databases#getting-database-details).
+The figure on which billing for Cloudant storage is based is what appears in the .sizes.external field (2281863751 bytes in the above output).
+By the way, that is a different figure from what appears in the Size column of the Databases panel of the Cloudant dashboard.
+
+When you delete a document using the "DELETE /$DATABASE/$DOCUMENT_ID" API (described at https://cloud.ibm.com/docs/services/
+Cloudant?topic=cloudant-documents#delete-a-document), that leaves a tombstome that includes only the _id, _rev and _deleted 
+fields which takes up minimal disk space. However, in your database I see at least one deleted document that has more than 
+just those tombstone fields:  
+
+https://bit.ly/2J5gS67
+https://cloudant.fogbugz.com/f/cases/107689/
