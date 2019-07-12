@@ -1,0 +1,38 @@
+If you are having a problem updating your clou, follow these steps 
+
+create a new virtualenv
+create a new directory using mkdir 
+example mkdir testing
+pip install virtualenv
+virtualenv venv --python=python2.7
+. venv/bin/activate
+
+pip install -i https://mercyilade@uk.ibm.com:"api"
+@eu.artifactory.swg-devops.com/artifactory/api/pypi/wdp-cloumpose-pypi-virtual/simple clou
+
+gotten from : https://eu.artifactory.swg-devops.com/artifactory/webapp/#/home
+
+after that clou is installed
+you will encounter permission issue :
+
+testing clou --version
+zsh: permission denied: /Users/mercyilade/venvs/clou/bin/clou
+
+you need to change your clou path either by script or in the ~/.zshrc
+change the clou alias in the file above
+
+after that do source ~/.zshrc to build up the changes
+
+test by doing clou --version
+you will see 3.0
+
+try clou user info $name
+
+error message saying 
+ import idna
+ImportError: No module named idna
+
+do pip install idna
+
+complete and clou is working 
+
