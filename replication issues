@@ -87,3 +87,18 @@ https://cloudant.fogbugz.com/f/cases/120829/
 acurl "https://$ACCOUNT.cloudant.com/_scheduler/jobs/68245f5954fa122e7768a4bfbfbd0d15+2bcontinuous"
 
 
+
+{
+  "_id": "SNCF-course-sncf002454q-20190812-sg-pge-to-mi-master",
+  "_rev": "3-ff8451a37b3e0a76b56f0b1e91a091d9",
+  "source": "
+https://XXXXXX:YYYYYY@sncf-production.cloudant.com/course-sncf002454q-20190812-sg-pge
+",
+  "target": "https://XXXXXX:YYYYYY@sncf-production.cloudant.com/mi-master",
+  "continuous": true,
+  "_replication_state": "triggered",
+  "_replication_state_time": "2019-08-12T15:40:56Z",
+  "_replication_id": "03d7ac2d9416a482dbd881ca95b3f789+continuous"
+}
+
+acurl -s https://sncf-production.cloudant.com/_scheduler/jobs/03d7ac2d9416a482dbd881ca95b3f789+continuous | jq .
