@@ -1,0 +1,62 @@
+In order to access MPP V2 do the following steps
+
+log into IBM Cloud, once successful 
+
+Switch to the Dallas Account (1647969)
+And select Kubernetes cluster from the left pane. 
+Click on “wams-db2prod-dal13-dashdb-prod1” 
+Then select Access at the top left of the new page.
+
+click on Connect via CLI
+
+ibmcloud login -a cloud.ibm.com -r us-south -g default add --sso since we are using a federated ID
+
+It will bring you to this page
+https://identity-3.eu-central.iam.cloud.ibm.com/ui/showpasscode.jsp
+copy the token and paste in your terminal 
+
+Select an account: from all the options 
+
+pick 7. IBM (1e2a47b2742613849bcb4a5e760473d2) <-> 1647969
+
+It will bring you to this:
+You have additional security features enabled on the account.
+Input the security code> 
+
+
+go to your google authenticator and input the token from IBM CLOUD
+and enter it in your terminal
+
+enter this in your terminal 
+ibmcloud ks cluster-config --cluster 3ca1bec369f9417a99000f6cfbb149f3
+
+Export environment variables to start using Kubernetes.
+
+copy this "export KUBECONFIG=/Users/mercyilade/.bluemix/plugins/container-service/
+clusters/3ca1bec369f9417a99000f6cfbb149f3/kube-config-dal13-wams-db2prod-dal13-dashdb-prod1.yml" and
+paste it in your terminal 
+
+then try some parameters :
+
+kubectl cluster-info
+kubectl get ns  
+
+kubectl -n db2whoc-yp-wams-db2prod-dal13-dashdb-prod1-m-zykwbyp   exec -it dashmpp-head-0 /bin/bash
+
+do sudo su - db2inst1 to connect to the database BLUDB
+
+db2 "select * from sysibm.sysdummy1"  which shows that the database can run basic queries
+
+/opt/ibm/dsserver/scripts/recovery/mgmt_health_check.pl will show health checks but only basic summary
+
+nc -zv db2w-zykwbyp.services.dal.bluemix.net 50000
+nc -zv db2w-zykwbyp.services.dal.bluemix.net 443  
+
+shows if host are connectable but does not work for CIAE/HIPAA  but works for public host
+
+
+
+
+
+
+
