@@ -43,6 +43,8 @@ kubectl get ns
 
 kubectl -n db2whoc-yp-wams-db2prod-dal13-dashdb-prod1-m-zykwbyp   exec -it dashmpp-head-0 /bin/bash
 
+sudo su - db2inst1
+
 do sudo su - db2inst1 to connect to the database BLUDB
 
 db2 "select * from sysibm.sysdummy1"  which shows that the database can run basic queries
