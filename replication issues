@@ -14,19 +14,22 @@ acurl 'https://$cluster_name.cloudant.com/_active_tasks' | jq  '. | map (select 
 
 acurl 'https://mercyilade.cloudant.com/_active_tasks' | jq '. | map (select(contains({"type":"replication", "doc_id":"ba3ba91cc574b700ac028fdea8752bd2"})))'| jq .
 
+acurl 'https://app5196730.heroku.cloudant.com/_active_tasks' | jq '. | map 
+(select(contains({"type":"replication", "doc_id":"prefilter-new-e9"})))'
+
 To check a replication in a error state :
 
 acurl 'https://$user_name.cloudant.com/_replicator/_all_docs?include_docs=true' | jq '.rows  [].doc | select(._replication_state=="error")'
+
+
+acurl 'https://sncf-production.cloudant.com/_active_tasks' | jq '. | map (select(contains({"type":"replication", 
+"doc_id":"SNCF-course-sncf006702t-20191003-mse-ply-to-mi-master"})))'| jq .
 
 Using the scheduler:
 
 https://$account_name.cloudant.com/_scheduler/docs/_replicator/e0a520c9d9241067d7873943e503e1eb
 
-
-acurl 'https://app5196730.heroku.cloudant.com/_active_tasks' | jq '. | map 
-(select(contains({"type":"replication", "doc_id":"prefilter-new-e9"})))'
-
-acurl https://app5196730.heroku.cloudant.com/_scheduler/docs/_replicator/prefilter-new-e9 | jq .
+acurl 'https://sncf-production.cloudant.com/_replicator/SNCF-course-sncf8905q-20191003-pmp-sn-to-mi-master' | jq .
 
 acurl 'https://app5196730.heroku.cloudant.com/mi-master/_changes?since=now'
 
