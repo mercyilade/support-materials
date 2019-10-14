@@ -44,6 +44,7 @@ kubectl get ns
 kubectl -n db2whoc-yp-wams-db2prod-dal13-dashdb-prod1-m-zykwbyp   exec -it dashmpp-head-0 /bin/bash
 
 db2level
+for V1/V2 system to get into root:
 
 sudo su - db2inst1 
 
