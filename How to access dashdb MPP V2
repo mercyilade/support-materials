@@ -61,6 +61,16 @@ nc -zv db2w-zykwbyp.services.dal.bluemix.net 443
 shows if host are connectable but does not work for CIAE/HIPAA  but works for public host
 
 
+difference in Configuration items:
+
+ dashdb is configuration item for Db2 Warehouse on Cloud (old hosts). 
+ For Db2 Warehouse on Cloud  MPPV2 (new hosts) configuration item is db2-warehouse-on-cloud
+
+You mean it is dashdb if the system name begins with "dashdb"  and 
+db2-warehouse-on-cloud if the system name begins with "db2whoc" 
+
+there is also third configuration item dashdb-for-transactions. This is also for old hosts (V1) 
+but for transactional databases. You will see the txn or thxha string in the hostname
 
 
 
