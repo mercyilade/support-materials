@@ -1,0 +1,27 @@
+In order to access vi eu cloud:
+
+ssh Mercyilade@158.177.125.205  -p 12357 -D 3128
+
+db2level
+for V1/V2 system to get into root:
+
+sudo su - db2inst1 
+
+db2 connect to bludb (to connect to the database BLUDB)
+
+
+how to check for  Db2 cron jobs scheduled in SYSTOOLS.ADMIN_TASK_LIST
+run select * from SYSTOOLS.ADMIN_TASK_LIST
+
+
+
+
+db2 "select * from sysibm.sysdummy1"  which shows that the database can run basic queries
+
+/opt/ibm/dsserver/scripts/recovery/mgmt_health_check.pl will show health checks but only basic summary
+
+nc -zv db2w-zykwbyp.services.dal.bluemix.net 50000
+nc -zv db2w-zykwbyp.services.dal.bluemix.net 443  
+
+shows if host are connectable but does not work for CIAE/HIPAA  but works for public host
+
