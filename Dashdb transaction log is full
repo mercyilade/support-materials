@@ -1,0 +1,80 @@
+In order to check if tansaction log is fun log in as a user: db2inst1
+
+In order to check for logs
+
+first sign in as sudo su db2inst1
+cd /mnt/bludata0/
+cd db2
+see what is in the directory  ls -rt1
+cd log
+
+check for db2diags for any smoking gun
+
+run this command which shows transaction log usage:
+
+db2 "select MEMBER, TOTAL_LOG_AVAILABLE, TOTAL_LOG_USED, FIRST_ACTIVE_LOG, LAST_ACTIVE_LOG, 
+CURRENT_ACTIVE_LOG, APPLID_HOLDING_OLDEST_XACT from table(mon_get_transaction_log(-1)) as t order by member asc"
+
+[db2inst1@dashmpp-head-0 - Db2wh NODE0000]$ db2 "select MEMBER, TOTAL_LOG_AVAILABLE, TOTAL_LOG_USED, FIRST_ACTIVE_LOG, 
+LAST_ACTIVE_LOG, CURRENT_ACTIVE_LOG, APPLID_HOLDING_OLDEST_XACT from table(mon_get_transaction_log(-1)) as t 
+order by member asc"
+
+MEMBER TOTAL_LOG_AVAILABLE  TOTAL_LOG_USED       FIRST_ACTIVE_LOG     LAST_ACTIVE_LOG     
+CURRENT_ACTIVE_LOG   APPLID_HOLDING_OLDEST_XACT
+------ -------------------- -------------------- -------------------- -------------------- 
+-------------------- --------------------------
+     0          83141150595              9249405                 4307                 4316                 4307                        
+     -
+
+  1 record(s) selected.
+
+if the FIRST_ACTIVE_LOG number != the CURRENT_ACTIVE_LOG there’s likely a problem with recording the transaction logs. 
+for this case if you dig in the diags you’ll see write suspend errors 
+which is why the numbers didn’t match up earlier. right now it’s at log # 4307
+
+the dead give away to see if things are really broken is to try creating a 
+sample table and removing it. make sure no one made some table abc, if they did just name it something else
+db2 connect to bludb
+db2 "create table abc(i int)"
+db2 drop table abc
+db2 terminate
+if the transaction log is full it won’t even run and 
+will fail with something like transaction log full
+
+
+and then check the db2diags to see if there are transaction log full errors 
+or something like this to see what app may be hogging the space
+
+2016-10-20-20.14.33.619044+000 E65260163E677         LEVEL: Error
+PID     : 14359                TID : 140245332911872 PROC : db2sysc 0
+INSTANCE: db2inst1             NODE : 000            DB   : BLUDB
+APPHDL  : 0-53499              APPID: 10.254.3.122.42359.161020191619
+AUTHID  : DASH105994           HOSTNAME: 
+EDUID   : 52058                EDUNAME: db2agent (BLUDB) 0
+FUNCTION: DB2 UDB, data protection services, sqlpgResSpace, probe:2860
+MESSAGE : ADM1823E  The active log is full and is held by application handle
+          "0-51267".  Terminate this application by COMMIT, ROLLBACK or FORCE
+          APPLICATION.
+or
+
+2016-08-09-18.43.48.916452+000 E30193761E669         LEVEL: Error
+PID     : 14699                TID : 46981149878016  PROC : db2sysc 0
+INSTANCE: db2inst1             NODE : 000            DB   : BLUDB
+APPHDL  : 0-56332              APPID: 172.17.0.4.37374.160809184315
+AUTHID  : DASH6475             HOSTNAME: dashdb-entry-yp-dal09-09.services.dal.bluemix.net
+EDUID   : 10967                EDUNAME: db2agent (BLUDB) 0
+FUNCTION: DB2 UDB, data protection services, sqlpgResSpace, probe:2860
+MESSAGE : ADM1823E  The active log is full and is held by application handle
+          "0-876".  Terminate this application by COMMIT, ROLLBACK or FORCE
+          APPLICATION.
+
+matching the timing with the customer’s complaint. since this is an MPP setup with multiple nodes you have to 
+check all the MLN diags to find it
+so all the folders like <db2 dump directory>/NODE0*** have to be checked. can just use the grep command
+grep <db2dump dir>/NODE0*/db2diag* to find it and match with the timestamps from there. 
+but further db changes that require killing any process or the db just send to the ops queue with your diagnostics from the above commands sent
+also to list indoubt transactions as db2inst1 on every mln
+
+db2 connect to bludb; db2 list indoubt transactions
+to get the mln to node mappings it’s cat <sqllib dir>/db2nodes.cfg
+sqllib directory -> just the db2dump parent directory
