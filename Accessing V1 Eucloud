@@ -2,6 +2,11 @@ In order to access vi eu cloud:
 
 ssh Mercyilade@158.177.125.205  -p 12357 -D 3128
 
+
+ssh the private IP address
+ssh Mercyilade@10.85.197.232
+
+
 db2level
 for V1/V2 system to get into root:
 
@@ -10,9 +15,15 @@ sudo su - db2inst1
 db2 connect to bludb (to connect to the database BLUDB)
 
 
-how to check for  Db2 cron jobs scheduled in SYSTOOLS.ADMIN_TASK_LIST
-run select * from SYSTOOLS.ADMIN_TASK_LIST
+In order to check for logs
 
+first sign in as sudo su db2inst1
+cd /mnt/bludata0/
+cd db2
+see what is in the directory  ls -rt1
+cd log
+
+check for db2diags for any smoking gun
 
 
 
