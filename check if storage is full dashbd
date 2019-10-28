@@ -26,4 +26,4 @@ ps aux | grep -i mgmt_backup_everything
 
 move the ticket to ops 
 
-ticket [CS1138608](https://watson.service-now.com/nav_to.do?uri=%2Fsn_customerservice_case.do%3Fsys_id%3D0c03aa4ddbf8cc509f74751c8c9619f7%26sysparm_stack%3D%26sysparm_view%3D)
+ticket [CS1138608]:(https://watson.service-now.com/nav_to.do?uri=%2Fsn_customerservice_case.do%3Fsys_id%3D0c03aa4ddbf8cc509f74751c8c9619f7%26sysparm_stack%3D%26sysparm_view%3D)
