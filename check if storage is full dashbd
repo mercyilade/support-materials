@@ -1,0 +1,29 @@
+to check for the hostname use this link if gobot is not working 
+https://occ.bluemix.net/#/clients?panel=Machines&services=spark,bi4c,
+compose,dash,dw,icp4d,oss,occ,streams&environments=PROD&q=dashdb-enterprise4-yp-tal-02
+
+
+ [db2inst1@dashdb-enterprise4-yp-tal-02 Mercyilade]$ df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda2             854G   97G  714G  12% /
+tmpfs                 127G   12K  127G   1% /dev/shm
+/dev/sda1              63G  229M   59G   1% /boot
+/dev/mapper/vgdata0-lvdata0
+                      3.9T  3.5T  184G  96% /mnt/bludata0
+
+
+1. Check if there are any archive logs can be removed.
+sudo su - db2inst1 -c "/opt/ibm/dsserver/scripts/recovery/prune_db2_arclog.sh -b3 -p"
+
+
+2. Run a disk utilization report 
+
+ sudo su - db2inst1 -c /opt/ibm/dsserver/scripts/space.pl
+
+3. Check if a database backup is running:
+
+ps aux | grep -i mgmt_backup_everything
+
+move the ticket to ops 
+
+ticket [CS1138608](https://watson.service-now.com/nav_to.do?uri=%2Fsn_customerservice_case.do%3Fsys_id%3D0c03aa4ddbf8cc509f74751c8c9619f7%26sysparm_stack%3D%26sysparm_view%3D)
