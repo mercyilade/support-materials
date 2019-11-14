@@ -47,6 +47,19 @@ db2 connect to bludb (to connect to the database BLUDB)
 db2 "select * from sysibm.sysdummy1"  which shows that the database can run basic queries
 
 /opt/ibm/dsserver/scripts/recovery/mgmt_health_check.pl will show health checks but only basic summary
+[root@dashmpp-head-0 - Db2wh home]# /opt/ibm/console/production/console-deploy-ops.sh status
+will only work in V1 systems
+
+Console issues
+for V2 systems
+to get the console parameter to run  do first:
+chose `dsserver2-596c7fcd64-dmb94` 
+kubectl -n db2whoc-yp-wams-db2prod-dal13-dashdb-prod1-m-jmgqxud get pods -o wide
+then run:
+kubectl -n db2whoc-yp-wams-db2prod-dal13-dashdb-prod1-m-jmgqxud exec -it dsserver2-596c7fcd64-dmb94 -- status
+will show you the console if it working or not
+
+
 
 nc -zv db2w-zykwbyp.services.dal.bluemix.net 50000
 nc -zv db2w-zykwbyp.services.dal.bluemix.net 443  
