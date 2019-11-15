@@ -78,3 +78,9 @@ also to list indoubt transactions as db2inst1 on every mln
 db2 connect to bludb; db2 list indoubt transactions
 to get the mln to node mappings it’s cat <sqllib dir>/db2nodes.cfg
 sqllib directory -> just the db2dump parent directory
+
+
+
+for hostname where there is there is  some supernode system MPP (CS1186487)
+we usually start with node1 use this to egrep the logs
+db2 get database configuration for bludb | egrep 'LOGFILSIZ|LOGPRIMARY|LOGSECOND|NEWLOGPATH|Path to logfiles' 
