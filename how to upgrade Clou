@@ -18,7 +18,8 @@ you will encounter permission issue :
 testing clou --version
 zsh: permission denied: /Users/mercyilade/venvs/clou/bin/clou
 
-you need to change your clou path either by script or in the ~/.zshrc
+you need to change your clou path either by script or in the ~/.zshrc(change it to the new directory you created)
+
 change the clou alias in the file above
 
 after that do source ~/.zshrc to build up the changes
