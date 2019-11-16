@@ -1,0 +1,28 @@
+to access icd 
+
+`icdctl cluster` to see a list of all of the clusters we manage.
+
+you can do i clusters (if you have set i as an alias)
+`i cl <cluster-name>`or icdctl cl <cluster nasme>
+i g po will run and A pod is a Kubernetes construct that represents a group of containers running on a node
+
+you can use the `d` to describe for example 
+i d po icd-scheduler-84fd8b65c9-8s522
+
+You can target a namespace with `icdctl namespace <name>` (`i ns <name>`), or try `icdctl get 
+formations --all-namespaces` to view all formations across all namespaces instead:
+
+To get more detail about one formation in particular, use `icdctl formation <name>` (`i f <name>`):
+
+we can use the formation parameter as well to check individual account :
+you can run `icdctl formation <name>` (`i f <name>`) to target it and get the above information.
+crn:v1:bluemix:public:databases-for-redis:us-south:a/40ddc34a953a8c02f10987b59085b60e:'a1730d29-bf60-4447-9972-1d151c388421::'
+
+i ce status` will run a health check
+i ce is_leader` will tell you which member is the leader
+
+You can get pod logs by tailing them (`i tail m-0`) or pulling them directly (`icdctl logs c-$ID-m-0 --since 24h`). 
+Either way you'll need to specify which container you care about (`-c db` or `-c mgmt`).
+
+
+
