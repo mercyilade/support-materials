@@ -1,0 +1,28 @@
+when you get a ticket in **ICD**
+
+check the *crn* for the formation
+crn crn:v1:bluemix:public:databases-for-postgresql:
+eu-de:a/38b1b1ae718b2bdfe3ea57558eeabd80:a037583a-c07f-42c7-b22c-f76448ee6cf2::
+
+i ffs a037583a-c07f-42c7-b22c-f76448ee6cf2 eu-de
+
+icdctl ffs  a037583a-c07f-42c7-b22c-f76448ee6cf2 eu-de
+Targeting namespace compose-system on cluster icd-prod-eu-de-db-7lxfv
+
+No resources found.
+Targeting namespace compose-system on cluster icd-prod-eu-de-db-bjyra
+Targeting namespace d970c525972046b2ac64892eb8cbd132 on cluster icd-prod-eu-de-db-bjyra
+
+check if cluster is healthy 
+then do 
+i recipes will show contents of the recipes 
+
+NAMESPACE                          NAME                                   TYPE             STATUS      FORMATION                              DATABASE     VERSION   AGE
+d970c525972046b2ac64892eb8cbd132   64d752d7-c36d-4806-9e2c-33a1a3b12d0a   rotate-backups   completed   a037583a-c07f-42c7-b22c-f76448ee6cf2   postgresql   10.10     1d
+d970c525972046b2ac64892eb8cbd132   e7592bef-7ee9-4cad-926f-0b6faa12941a   backup           completed   a037583a-c07f-42c7-b22c-f76448ee6cf2   postgresql   10.10     1d
+d970c525972046b2ac64892eb8cbd132   41a386ca-e328-4088-a9e6-8136bb73b22e   scale            running     a037583a-c07f-42c7-b22c-f76448ee6cf2   postgresql   10.10     18h
+d970c525972046b2ac64892eb8cbd132   48d97d83-4691-4c2b-85ef-6d73f5739087   backup           prepared    a037583a-c07f-42c7-b22c-f76448ee6cf2   postgresql   10.10     3h
+
+formation is not healthy and scale has been running for 17 hours engage ops in icd srv channel
+
+Targeting namespace d970c525972046b2ac64892eb8cbd132 on cluster icd-prod-eu-de-db-bjyra
