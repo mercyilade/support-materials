@@ -11,6 +11,39 @@ or
 do db2 get dbm cfg | grep -i diag
 It will show you the path to the logs
 
+Check first the trans log usage across
+
+db2 "select char(DB_NAME,16) DB_NAME, LOG_UTILIZATION_PERCENT, TOTAL_LOG_USED_KB, TOTAL_LOG_AVAILABLE_KB, 
+TOTAL_LOG_USED_TOP_KB, DBPARTITIONNUM from SYSIBMADM.LOG_UTILIZATION"
+
+It will show which nodes have the highest utilization
+for this case here we can see NODE0019 actually is at 98% utilization
+go to the 
+which is the suspect NODE
+/head/home/db2inst1/sqllib/db2dump/NODE0019/db2diag.0.log
+
+2019-12-04-13.19.29.521986+000 E4969924E683          LEVEL: Error
+PID     : 44323                TID : 47608840054528  PROC : db2sysc 19
+INSTANCE: db2inst1             NODE : 019            DB   : BLUDB
+APPHDL  : 0-40043              APPID: 172.30.55.179.54858.191204131928
+UOWID   : 6                    ACTID: 1
+AUTHID  : DSADM                HOSTNAME: dashmpp-data1-0
+EDUID   : 8081                 EDUNAME: db2agntp (METADB) 19
+FUNCTION: DB2 UDB, data protection services, sqlpgResSpace, probe:7879
+MESSAGE : ADM1823E  The active log is full and is held by application handle
+          "0-32064".  Terminate this application by COMMIT, ROLLBACK or FORCE
+          APPLICATION.
+          
+          
+db2pd -apinfo -d bludb
+will show which application is in waiting status
+so if there are no ops we should be able to handle this type of case on our own
+they have to investigate the application since its not commiting enough
+log space is released upon commit or rollback
+all it is is identifying what app is consuming then go back to the customer
+
+
+
 check for db2diags for any smoking gun
 
 run this command which shows transaction log usage:
