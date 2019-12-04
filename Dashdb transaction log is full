@@ -7,6 +7,9 @@ cd /mnt/bludata0/
 cd db2
 see what is in the directory  ls -rt1
 cd log
+or 
+do db2 get dbm cfg | grep -i diag
+It will show you the path to the logs
 
 check for db2diags for any smoking gun
 
