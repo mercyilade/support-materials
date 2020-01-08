@@ -1,0 +1,22 @@
+Please provide the schema size individually in UAT database asap.
+
+You can grab this as well on your own via SQL:
+select ((select sum(fpages*pagesize) from syscat.tablespaces as a, syscat.tables as b 
+where a.TBSPACEID=b.TBSPACEID and tabschema='<schema name>' group by tabschema)+(select 
+sum(nleaf*pagesize) from syscat.tablespaces as a, syscat.indexes as b where a.TBSPACEID=b.
+TBSPACEID and tabschema='<schema name>' group by tabschema))/1024 as SCHEMA_SIZE_KB from sysibm.sysdummy1
+
+Example:
+select ((select sum(fpages*pagesize) from syscat.tablespaces as a, syscat.tables as b where a.TBSPACEID=b.
+TBSPACEID and tabschema='DASHUAT' group by tabschema)+(select sum(nleaf*pagesize) from syscat.tablespaces 
+as a, syscat.indexes as b where a.TBSPACEID=b.TBSPACEID and tabschema='DASHUAT' group by tabschema))/1024 
+as SCHEMA_SIZE_KB from sysibm.sysdummy1
+
+SCHEMA_SIZE_KB
+--------------------
+172119712
+
+1 record(s) selected.
+
+
+CS1524004
