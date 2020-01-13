@@ -1,4 +1,24 @@
 to access icd 
+login to ibm cloud
+
+ ibmcloud login --sso 
+ paste the one time password
+ 
+ chose number 9
+ if you have issues 
+ 
+ try update icd   
+ icdctl update. ; or 
+ token refresh icdctl refresh-tokens
+
+ 
+ to log in to the deployment
+ 
+ i ffs 8e8d21a0-b715-4ed4-9e15-1ec4d1c70484  or
+ 
+ i ffs crn:v1:bluemix:public:databases-for-mongodb:eu-de:a/6202fc75353041f6aa259712bb03cde5:
+ dc7d2463-5822-49b2-ad37-c28e199c3b7a::
+
 
 `icdctl cluster` to see a list of all of the clusters we manage.
 
