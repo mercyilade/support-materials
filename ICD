@@ -19,6 +19,27 @@ login to ibm cloud
  i ffs crn:v1:bluemix:public:databases-for-mongodb:eu-de:a/6202fc75353041f6aa259712bb03cde5:
  dc7d2463-5822-49b2-ad37-c28e199c3b7a::
 
+icdctl console <pods>
+
+icdctl describe <pod>
+
+will give you more info , if you get connected , write pcs shows status
+
+
+Failed provisioning
+i recipe-fail the provision recipe this will allow you delete it
+
+i check-scale 
+checks to see if deployment needs to be scaled
+
+i get pvc -o yaml | grep storage
+      volume.beta.kubernetes.io/storage-class: icd-block-gold
+
+Used space
+i console m-0 -- "df -h /data" | grep pvc
+
+i console m-1 -- "df -h /data" | grep pvc
+
 
 `icdctl cluster` to see a list of all of the clusters we manage.
 
