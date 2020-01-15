@@ -1,8 +1,6 @@
 If you are having a problem updating your clou, follow these steps 
 
-create a new virtualenv
 
-pip install virtualenv
 
 create a new directory using mkdir 
 example mkdir testing
