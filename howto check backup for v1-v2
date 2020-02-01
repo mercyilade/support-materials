@@ -1,0 +1,8 @@
+db2 list utilities
+db2top -d bludb  and 
+db2pd -d bludb -apinfo xxxx
+
+V1 you just check ls -l /tmp/backup*
+wvbar-snapshot list backups
+wvbar-snapshot list schedule - its the schedule
+
