@@ -26,6 +26,11 @@ cd log
 check for db2diags for any smoking gun
 
 
+we can also check for console status if client is seeing 502 gateway error
+
+/opt/ibm/console/production/console-deploy-ops.sh status
+
+
 
 db2 "select * from sysibm.sysdummy1"  which shows that the database can run basic queries
 
