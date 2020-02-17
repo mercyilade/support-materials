@@ -26,6 +26,15 @@ icdctl describe <pod>
 will give you more info , if you get connected , write pcs shows status
 
 
+
+For rabbitmq 
+Run  i rqcs 
+
+Postgres check disk usage:
+i prf
+
+
+
 Failed provisioning
 i recipe-fail the provision recipe this will allow you delete it
 
