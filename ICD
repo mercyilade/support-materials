@@ -25,7 +25,7 @@ icdctl describe <pod>
 
 will give you more info , if you get connected , write pcs shows status
 
-
+i check-scale   will tel you if there is any resources issue
 
 For rabbitmq 
 Run  i rqcs 
