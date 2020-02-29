@@ -1,0 +1,16 @@
+When faced with backup failure in ICD:
+
+Login to the system using 
+i ffs crn
+i recipes
+icdctl y recipe on the failed backups
+The results for mongodb:
+and amongst the output you can find "Hidden member is not properly 
+synced.". This condition will occur from time to time in the normal operation of MongoDB formations. 
+
+When you see "Hidden member is not properly synced." in a recipe result, the next 
+thing to do is look to see if the h-0 pod is still syncing, finished syncing, or broken. 
+
+Check this with icdctl mocs
+
+ If the hidden member is in state SECONDARY, then it is healthy and ready for the next backup. 
