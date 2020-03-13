@@ -1,6 +1,8 @@
 If you are having a problem updating your clou, follow these steps 
 
 
+remove your old venv before starting 
+my old one is (clou_project)
 
 create a new directory using mkdir 
 example mkdir testing
