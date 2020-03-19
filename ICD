@@ -33,7 +33,7 @@ Run  i rqcs
 Postgres check disk usage:
 i prf
 
-
+i recs   redis formation
 
 Failed provisioning
 i recipe-fail the provision recipe this will allow you delete it
