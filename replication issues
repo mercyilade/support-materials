@@ -2,15 +2,17 @@ to check if a user have replication:
 
 acurl -s https://bm-cc-us-south-01.cloudant.com/_active_tasks | jq 'map(select(.type == "replication"))'
 
+using the sceduler:
+ acurl 'https://4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix.cloudant.com/_scheduler/jobs' | jq .
+ 
+ acurl 'https://17e5aec4-c5ff-4d2a-bde5-ec8eb196c7d8-bluemix.cloudant.com/_scheduler/
+ jobs/00d337d30877bbed1732a0ffc6e9da6e+continuous' | jq .
 
-acurl 'https:/$user_name.cloudant.com/_active_tasks' | jq '.[] | select (.type=="replication")' | jq .
 
-acurl 'https://$user_name.cloudant.com/_active_tasks' | jq '.  | map (select(contains({type:"replication"})))'
 
 To check individual replication in a cluster:
 
-acurl 'https://$cluster_name.cloudant.com/_active_tasks' | jq  '. | map (select (contains({user:"a81a5933-af7d-431f-9113-d5b4b0543519-bluemix"})))'
-
+acurl 'https://bm-cc-eu-de-01.cloudant.com/_active_tasks' | jq  '. | map (select (contains({user:"17e5aec4-c5ff-4d2a-bde5-ec8eb196c7d8-bluemix"})))'
 
 acurl 'https://mercyilade.cloudant.com/_active_tasks' | jq '. | map (select(contains({"type":"replication", "doc_id":"ba3ba91cc574b700ac028fdea8752bd2"})))'| jq .
 
