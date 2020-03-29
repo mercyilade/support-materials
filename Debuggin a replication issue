@@ -1,0 +1,60 @@
+https://4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix.cloudant.com/
+_scheduler/jobs/577248ff96308817ddb499f266b993be+continuous' | jq .
+
+{
+  "database": "4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix/_replicator",
+  "id": "577248ff96308817ddb499f266b993be+continuous",
+  "pid": "<0.27861.7116>",
+  "source": "https://4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix.cloudant.com/cpqi_log_db_prod/",
+  "target": "https://26258644-dffa-49a3-82a5-490e81e7d6e9-bluemix.cloudant.com/cpqi_log_db_prod/",
+  "user": "4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix",
+  "doc_id": "f9e365413df4c7c22db4651db8efb64b",
+  "info": {
+    "revisions_checked": 2165548,
+    "missing_revisions_found": 124119,
+    "docs_read": 124119,
+    "docs_written": 124119,
+    "changes_pending": 0,
+    "doc_write_failures": 0,
+    
+    acurl https://4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix.cloudant.com/cpqi_log_db_prod | jq .doc_count
+4180829
+
+acurl https://26258644-dffa-49a3-82a5-490e81e7d6e9-bluemix.cloudant.com/cpqi_log_db_prod/ | jq .doc_count
+4180829
+
+'https://4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix.cloudant.com/_scheduler/jobs/39df0880359c0942618ba0992e7f446b+continuous' | jq .
+{
+  "database": "4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix/_replicator",
+  "id": "39df0880359c0942618ba0992e7f446b+continuous",
+  "pid": "<0.1288.3969>",
+  "source": "https://4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix.cloudant.com/order_status_details_db_prod/",
+  "target": "https://26258644-dffa-49a3-82a5-490e81e7d6e9-bluemix.cloudant.com/order_status_details_db_prod/",
+  "user": "4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix",
+  "doc_id": "b6dc2ed2d18ffbccff6b1ffedc4ffe28",
+  "info": {
+    "revisions_checked": 326526,
+    "missing_revisions_found": 5317,
+    "docs_read": 5318,
+    "docs_written": 5318,
+    "changes_pending": 0,
+    "doc_write_failures": 0,
+    "checkpointed_source_seq": "2235812-g1AAAAebeJy11b9Kw0AcB_DQVpSCtC4qLjpVVFLvX3PpZFcnfQO9PwmltKmUdrZvoG-gg4uTvoF9Av-Au
+    76A6ORak_zqQadE4ZYLhOP74fjdN-k6jlNtF7VT01L1B0FLy2Zd9lyl3GDk6sBFuK66_ZEW0bAeBcNuvL8gHFmZTqeddlE6hdX1XvxuMSQkRJzlDpo
+    3G5mmrMar3DTs-DVlqU8oJjx31jxLstmthN037MpeyiIVUsJE7qyE3TZbMc52UeIeGHfnMXVVbIaU5g-bP28Ot5W4R8Zd-khdTn2vyUnur
+    D9P9zhhTwxbm6SsJ4hHw9DedE8Ttm_YhShlfb8hGMYWp3uWuOfGLVdmxxWCcPXf6WYXNyrFqzOOHzF9MZvwTWozRhRvcGv9BfoS6Cugl8vQ
+    YeZJFtjrMNDXQN8BvXYIPUYII2qxx2Dfg_0A9sYLdEqTQDaFvS6DPQH7CexBKbWJQn7gYWt9BvoZ6Degq7twycOmLz1pedrvQH8Cjb7h1IRj
+    JCz2GuwvsH__GLfwTfGY8rXOH9j5AdORVAQ",
+    "source_seq": "2235812-g1AAAAebeJy11b9Kw0AcB_DQVpSCtC4qLjpVVFLvX3PpZFcnfQO9PwmltKmUdrZvoG-gg4uTvoF9Av-Au76
+    A6ORak_zqQadE4ZYLhOP74fjdN-k6jlNtF7VT01L1B0FLy2Zd9lyl3GDk6sBFuK66_ZEW0bAeBcNuvL8gHFmZTqeddlE6hdX1XvxuMSQkRJz
+    lDpo3G5mmrMar3DTs-DVlqU8oJjx31jxLstmthN037MpeyiIVUsJE7qyE3TZbMc52UeIeGHfnMXVVbIaU5g-bP28Ot5W4R8Zd-khdTn2vyUnurD
+    9P9zhhTwxbm6SsJ4hHw9DedE8Ttm_YhShlfb8hGMYWp3uWuOfGLVdmxxWCcPXf6WYXNyrFqzOOHzF9MZvwTWozRhRvcGv9BfoS6Cugl8vQYeZJFtj
+    rMNDXQN8BvXYIPUYII2qxx2Dfg_0A9sYLdEqTQDaFvS6DPQH7CexBKbWJQn7gYWt9BvoZ6Degq7twycOmLz1pedrvQH8Cjb7h1IRjJCz2GuwvsH__
+    GLfwTfGY8rXOH9j5AdORVAQ"
+    
+    acurl https://4ffae7cc-00c5-420a-9bd7-0e921d51eea9-bluemix.cloudant.com/order_status_details_db_prod/ 
+    | jq .doc_count
+1159254
+
+acurl https://26258644-dffa-49a3-82a5-490e81e7d6e9-bluemix.cloudant.com/order_status_details_db_prod/ | jq .doc_count
+1159254
