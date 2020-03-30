@@ -19,3 +19,10 @@ Test database created
 curl -u 'adm-mercyilade'   -X POST 'https://0a320386-0827-4458-9dbc-ec4d8ffac06a-bluemix.cloudant.com/query-demo
 /_bulk_docs'   -H "Content-Type: application/json"  -d@/Users/mercyilade/Desktop/bulkcreate.json
 https://cloud.ibm.com/docs/services/Cloudant?topic=cloudant-creating-an-ibm-cloudant-query
+
+
+curl -u 'adm-mercyilade'  'https://0a320386-0827-4458-9dbc-ec4d8ffac06a-bluemix.cloudant.com/query-demo/_explain' 
+-X POST  -H 'content-type: application/json'  -d'{"selector": {"lastname": "Greene", "firstname": "Anna"}}' | jq .
+
+curl -u 'adm-mercyilade'  'https://0a320386-0827-4458-9dbc-ec4d8ffac06a-bluemix.cloudant.com/query-demo/_find' 
+-X POST  -H 'content-type: application/json'  -d'{"selector": {"lastname": "Greene", "firstname": "Anna"}}' | jq .
