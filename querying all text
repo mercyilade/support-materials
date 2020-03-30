@@ -26,3 +26,7 @@ curl -u 'adm-mercyilade'  'https://0a320386-0827-4458-9dbc-ec4d8ffac06a-bluemix.
 
 curl -u 'adm-mercyilade'  'https://0a320386-0827-4458-9dbc-ec4d8ffac06a-bluemix.cloudant.com/query-demo/_find' 
 -X POST  -H 'content-type: application/json'  -d'{"selector": {"lastname": "Greene", "firstname": "Anna"}}' | jq .
+
+ acurl   'https://0a320386-0827-4458-9dbc-ec4d8ffac06a-bluemix.cloudant.com/employee_directory/
+ _design/79186fdb117ab51193466f5969d3c472fbcab60f' | jq .
+
