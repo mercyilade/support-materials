@@ -1,3 +1,9 @@
+
+to check logs:
+
+i logs --tail 100 c-$ID-m-0 -c db
+
+
 to access icd 
 login to ibm cloud
 
