@@ -1,6 +1,13 @@
 
 to check logs:
 
+
+there are two ways - either you check the logs via command line:
+I typically do then kubectl logs <pod> -c>container> --tail 200 -f   
+(you can also do icdctl instead of kubectl).
+
+You can also use logdna
+I then do icdctl logdna after I selected a formation.
 i logs --tail 100 c-$ID-m-0 -c db
 
 
