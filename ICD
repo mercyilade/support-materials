@@ -10,6 +10,23 @@ You can also use logdna
 I then do icdctl logdna after I selected a formation.
 i logs --tail 100 c-$ID-m-0 -c db
 
+for example 
+i logs -cdb c-51a51e5b-cdc3-46f4-88ef-e6759d3ea706-m-0 > m0.txt
+
+i logs -clog c-51a51e5b-cdc3-46f4-88ef-e6759d3ea706-p-8946fcc77-2gpjg --tail=50  haproxy logs
+
+i l 
+the last part of the CRN
+filter on 51a51e5b-cdc3-46f4-88ef-e6759d3ea706
+it should appear and then select it and only the logs for it will appear
+if a scale is stuck
+
+
+i recipe-fail <recipe-id>
+
+
+
+
 
 to access icd 
 login to ibm cloud
