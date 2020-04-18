@@ -1,0 +1,3 @@
+to check if aa bypass is in place:
+
+  acurl https://bm-cc-eu-gb-02.cloudant.com/_node/dbcore@db1.bm-cc-eu-gb-02.cloudant.net/_config | jq .
