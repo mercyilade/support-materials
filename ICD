@@ -25,6 +25,8 @@ if a scale is stuck
 i recipe-fail <recipe-id>
 
 
+If you do an i f on the formation, 
+the zone for each node will be displayed (assuming you've updated icdctl)
 
 
 
