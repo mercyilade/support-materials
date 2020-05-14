@@ -1,5 +1,4 @@
- curl -u 'adm-mercyilade' https://mercyilade.cloudant.com/_api/v2/monitoring/disk_use
- ?duration=24h&cluster=bm-kone002&format=json | jq .
+ curl 'https://cabify-admin.cloudant.com/_api/v2/monitoring/disk_use?cluster=cabify001&format=json'  | jq .
  
  Link: https://console.bluemix.net/docs/services/Cloudant/api/monitoring.html#monitoring-an-ibm-cloudant-cluster
 
