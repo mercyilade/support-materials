@@ -3,6 +3,11 @@ In order to access vi eu cloud:
 ssh Mercyilade@158.177.125.205  -p 12357 -D 3128
 
 
+NOT EU Cloud
+ssh mercyilade@159.8.162.14 -p 12357 -D 312  
+
+Next
+
 ssh the private IP address
 ssh Mercyilade@10.85.197.232
 
@@ -29,6 +34,9 @@ check for db2diags for any smoking gun
 we can also check for console status if client is seeing 502 gateway error
 
 /opt/ibm/console/production/console-deploy-ops.sh status
+
+If you are having console issues you can recreate the console
+/opt/ibm/dsserver/bin/recreate.sh
 
 
 
