@@ -1,0 +1,98 @@
+The script is written by Brian:
+copy it and name it as get_db_sizes.py 
+
+import os
+import pprint
+import requests
+import sys
+import urllib
+
+from ConfigParser import ConfigParser
+
+config = ConfigParser()
+config.read(os.path.expanduser('~/.clou'))
+
+adm = config.get('cloudant', 'adm_user')
+adm_pass = config.get('cloudant', 'adm_password')
+
+def rounded_size(size, units=['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB',
+                           'ZB', 'YB']):
+    u = 0
+    while size > 1024.0:
+        size = size / 1024.0
+        u += 1
+        if u == len(units) - 1:
+            break
+    return '{0:.1f} {1}'.format(size, units[u])
+
+auth = (adm, adm_pass)
+
+get_accounts = 'https://cloudant.cloudant.com/users/_design/ordered/_view/by_cluster?startkey=["{0}"]&endkey=["{0}X"]&reduce=false'
+get_user = 'https://cloudant.cloudant.com/users/{0}'
+get_all_dbs = 'https://{0}.cloudant.com/_all_dbs'
+get_db = 'https://{0}.cloudant.com/{1}'
+
+if len(sys.argv)== 2:
+    cluster = sys.argv[1]
+else:    
+    sys.stderr.write('Usage: python ' + os.path.basename(sys.argv[0]) + ' <cluster>\n')
+    sys.exit(1)
+
+req = get_accounts.format(cluster)
+resp = requests.get(req, auth=auth)
+if resp.status_code != 200:
+    sys.stderr.write(req + ' ' + str(resp.status_code) + '\n')
+    sys.exit(1)
+accounts = []
+for row in resp.json()['rows']:
+    accounts.append(row['id']) 
+if len(accounts)==0:
+    sys.stderr.write('No accounts found for cluster: ' + cluster + '\n')
+    sys.exit(1)
+accounts.sort()
+sys.stderr.write('Accounts:\n')
+pprint.pprint([str(account) for account in accounts], stream=sys.stderr, indent=1)
+
+for account in accounts:
+    org_guid = ''
+    instance_id = ''
+
+    req = get_user.format(account)
+    resp = requests.get(req, auth=auth)
+    if resp.status_code == 200:
+        user = resp.json()
+        try:
+            org_guid = user['partners']['bluemix']['org_guid']
+        except KeyError:
+            pass
+        try:        
+            instance_id = user['partners']['bluemix']['instance_id']
+        except KeyError:
+            pass
+    else:
+        sys.stderr.write(req + ' ' + str(resp.status_code) + '\n')
+
+    req = get_all_dbs.format(account)
+    resp = requests.get(req, auth=auth)
+    if resp.status_code == 200:
+        dbs = resp.json()
+    else:
+        sys.stderr.write(req + ' ' + str(resp.status_code) + '\n')
+        continue
+
+    for db in dbs:
+        db = urllib.quote(db, safe='')
+        req=get_db.format(account, db)
+        resp = requests.get(req, auth=auth)
+        if resp.status_code == 200:
+            data_size = resp.json()['data_size']
+            print('"{}","{}","{}","{}",{},"{}"'.format(org_guid, instance_id, account, db, data_size, rounded_size(data_size)))
+            sys.stdout.flush()
+        else:
+            sys.stderr.write(req + ' ' + str(resp.status_code) + '\n')
+
+# To sort the output in reverse order of data_size:
+# cat [filename] | sort -t, -n -r +4 -5 > [filename].sorted
+
+cat ibm-presenceinsights001.out | awk -F, '{printf("%s,%s,%s,%s\n", $3, $4, $5, $6)}' > ibm-presenceinsights001.dbsizes.txt
+cat ibm-presenceinsights001.dbsizes.txt | sort -t, -n -r +2 -3 > ibm-presenceinsights001.dbsizes.sorted
