@@ -11,6 +11,34 @@ or
 do db2 get dbm cfg | grep -i diag
 It will show you the path to the logs
 
+Run /opt/ibm/dsserver/scripts/recovery/mgmt_health_check.pl
+check if  "/dev/xvdc1 985G 935G 0 100% /mnt/bludata0" is full
+
+
+
+Filesystem Size Used Avail Use% Mounted on
+/dev/xvda2 98G 71G 22G 77% /
+tmpfs 32G 12K 32G 1% /dev/shm
+/dev/xvda1 1008M 185M 773M 20% /boot
+/dev/xvdc1 985G 935G 0 100% /mnt/bludata0
+/dev/mapper/encfs 46G 573M 43G 2% /mnt/bludata0/blumeta0/crypt/encfs
+
+in oder to clear/delete use this link :
+https://github.ibm.com/cds-devops/dashdb-runbook/blob/3235318aa846f5ef95591d57a2466703262f7b4d/alerts/DSH00058.md
+
+steps:
+
+1- Check if there are any archive logs can be removed.
+
+sudo su - db2inst1 -c "/opt/ibm/dsserver/scripts/recovery/prune_db2_arclog.sh -b3 -p"
+
+if there is any archive log delete it 
+
+Delete the archive logs found above with: 
+sudo su - db2inst1 -c "/opt/ibm/dsserver/scripts/recovery/prune_db2_arclog.sh -b3 -d"
+
+
+
 Check first the trans log usage across
 
 db2 "select char(DB_NAME,16) DB_NAME, LOG_UTILIZATION_PERCENT, TOTAL_LOG_USED_KB, TOTAL_LOG_AVAILABLE_KB, 
@@ -116,7 +144,3 @@ to get the mln to node mappings it’s cat <sqllib dir>/db2nodes.cfg
 sqllib directory -> just the db2dump parent directory
 
 
-
-for hostname where there is there is  some supernode system MPP (CS1186487)
-we usually start with node1 use this to egrep the logs
-db2 get database configuration for bludb | egrep 'LOGFILSIZ|LOGPRIMARY|LOGSECOND|NEWLOGPATH|Path to logfiles' 
