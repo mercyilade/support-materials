@@ -1,0 +1,16 @@
+How to check for indoubt Transaction:
+
+
+“db2 list indoubt transactions
+will list all indoubt transactions
+
+
+db2 list indoubt transactions with prompting  
+checks for indoubt transactions 
+and asks what you want to do with them (commit, rollback etc).
+You need to do that for all nodes 
+
+f it finds any it asks for decision. 
+To commit you choose: c <number> for example c 1 to commit first listed transaction
+
+We will ask the customer what they want to do
