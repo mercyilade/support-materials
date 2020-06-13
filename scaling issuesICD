@@ -1,0 +1,41 @@
+when customers experience scaling issues :
+
+For Postgres
+check these details:
+
+i pcs
+
+⏳ Running on pod c-4fb9e69c-3e49-4d5d-935d-44ca86768f08-m-0 > kubectl exec c-4fb9e69c-3e49-4d5d-935d-44ca86768f08-m-0 -c db patronictl list postgresql
+	✅
++ Cluster: postgresql (6750521437689471001) -+---------------+------+----------+----+-----------+
+|                   Member                   |      Host     | Role |  State   | TL | Lag in MB |
++--------------------------------------------+---------------+------+----------+----+-----------+
+| c-4fb9e69c-3e49-4d5d-935d-44ca86768f08-m-0 | 172.30.190.12 |      | starting |    |   unknown |
+| c-4fb9e69c-3e49-4d5d-935d-44ca86768f08-m-1 | 172.30.43.157 |      | running  | 33 |        16 |
++--------------------------------------------+---------------+------+----------+----+-----------+
+➜  ~ if there is start/Unknown that means a PITR check with ops with your findings
+
+you can also do a status check 
+ i ce status
+kubectl exec c-4fb9e69c-3e49-4d5d-935d-44ca86768f08-m-0  -c mgmt cdb execute postgresql status
+{"data": ["status: STARTING"], "metadata": {"version": 0}}command terminated with exit code 1
+
+
+kubectl exec c-4fb9e69c-3e49-4d5d-935d-44ca86768f08-m-1  -c mgmt cdb execute postgresql status
+{"data": ["status: RUNNING"], "metadata": {"version": 0}}
+
+which shows m-0 is not looking good
+
+i prf will link you to prometheus dashboard where you can see the disk usage/memory
+
+to check the logs for any error message 
+
+i logs -log c-51a51e5b-cdc3-46f4-88ef-e6759d3ea706-p-8946fcc77-2gpjg --tail=50
+
+i logs -cdb c-51a51e5b-cdc3-46f4-88ef-e6759d3ea706-m-0 > m0.txt
+
+i logs -clog c-51a51e5b-cdc3-46f4-88ef-e6759d3ea706-p-8946fcc77-2gpjg --tail=50 
+
+
+ i l -i to sign in 
+ then i l to go directly into the formation .
