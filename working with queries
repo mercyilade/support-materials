@@ -59,3 +59,9 @@ create a .json file and populate it with the selector uswed in running the query
 
 https://cloudant.fogbugz.com/f/cases/118130/
 https://cloudant.fogbugz.com/f/cases/120198/#BugEvent.1104380
+
+checking if the selector is using an index : acurl -X POST https://impactradius.cloudant.com/productdata/_explain  -H "Content-Type: application/json" -d '{ "selector": { "catalogId": 6023 }, 
+"sort": [], "limit": 200, "update": false, "execution_stats": true, "use_index": "query_1_1_0" }'
+
+acurl -X POST https://impactradius.cloudant.com/productdata/_find  -H "Content-Type: application/json" -d '{ "selector": { "catalogId": 6023 }, 
+"sort": [], "limit": 200, "update": false, "execution_stats": true, "use_index": "query_1_1_0" }'
