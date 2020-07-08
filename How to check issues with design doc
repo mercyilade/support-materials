@@ -1,0 +1,91 @@
+If a design doc is not working or cannot be replicated to a target database
+
+This is the index:
+https://dedicatedcmstage.cloudant.com/resource_instance_history_2016/_all_docs?include_docs=true
+
+This is the sample POST payload for creating this type index in source db resource_instance_history_2016.
+===
+{
+    "type": "text",
+    "ddoc": "_design/instance-history",
+    "name": "instance-history-index",
+    "index": {
+        "fields": [
+            {"name": "account_id", "type": "string"},
+            {"name": "state", "type": "string"},
+            {"name": "resource_instance_id", "type": "string"},
+            {"name": "resource_group_id", "type": "string"}
+            ]
+    }
+}
+we need to check if the database is partitioned:
+We have had a look on your design doc which is not being replicated from source to target db. 
+The reason why the replication is failing is because the source db is partitioned whereas the target db
+is a non partitioned database.
+
+index=ibm-bss008* NOT _changes _design CouchDB-Replicator status_code=400 all 
+design doc write to target db get 400 bad requests failure.
+
+index=dbcore* host=dbcore.ibm-bss008* source=*crit OR source=*err  NOT "_metadata" invalid_design_doc
+the source db is partitioned.
+
+acurl https://dedicatedcmstage.cloudant.com/resource_instance_history_2017/_design/instance-history | jq .
+{
+  "_id": "_design/instance-history",
+  "_rev": "1-338c01112a1aec66db07a7235b50fe6f",
+
+  "options": {
+    "partitioned": true
+  }
+}
+acurl https://dedicatedcmstage-failover.cloudant.com/resource_instance_history_2016/ | jq . not partitioned 
+acurl https://dedicatedcmstage.cloudant.com/resource_instance_history_2016 | jq .props.partitioned
+true
+acurl https://dedicatedcmstage-failover.cloudant.com/resource_instance_history_2016 | jq .props.partitioned
+true
+
+to check the replication:
+acurl 'https://dedicatedcmstage-failover.cloudant.com/_scheduler/docs/_replicator?
+key="from.dedicatedcmstage.resource_instance_history_2016.to.dedicatedcmstage-failover.
+resource_instance_history_2016"' | jq .
+
+acurl 'https://dedicatedcmstage-failover.cloudant.com/_scheduler/jobs/8375b326045ba87db3b55260117df72a+continuous' | jq .
+process keeps restarting
+standard response
+Thank you for your patience as I investigated this further. I can confirm that both the source and target databases 
+in question are partitioned as you stated (see links below):
+
+curl https://dedicatedcmstage.cloudant.com/resource_instance_history_2016 | jq .props.partitioned
+true
+curl https://dedicatedcmstage-failover.cloudant.com/resource_instance_history_2016 | jq .props.partitioned
+true
+
+However, when inspecting the associated replication process using the /_scheduler API (see links below), t
+he replication process shows as "Pending" state and is repeatedly restarting, indicating that there is still an underlying issue with it.
+
+curl 'https://dedicatedcmstage-failover.cloudant.com/_scheduler/docs/_replicator?key="from.dedicatedcmstage.
+resource_instance_history_2016.to.dedicatedcmstage-failover.resource_instance_history_2016"' | jq .
+curl 'https://dedicatedcmstage-failover.cloudant.com/_scheduler/jobs/8375b326045ba87db3b55260117df72a+continuous' | jq.
+
+Additionally, I found an "invalid_design_doc" error in our database logs for this replication process as recently as 15:33UTC this afternoon,
+which is likely after you recreated the database. That is the error that occurs when the source and target databases are not both partitioned. 
+I suspect the replicator did not pick up the fact that the target database has been recreated as a partitioned database, and is still operating
+under the condition that the target database is non-partitioned.
+
+
+With this in mind, I recommend the two-step process outlined below:
+
+1) Delete the existing _replicator document (listed below):
+curl https://dedicatedcmstage-failover.cloudant.com/_replicator/from.dedicatedcmstage.resource_instance_history_2016.to.dedicatedcmstage-failover.resource_instance_history_2016 | jq .
+
+2) Create a new _replicator document with a unique _id value and populate it with the relevant information to describe this replication process.
+
+Please try that out and let me know if it resolves your issue.
+
+Thank you,
+
+check if it was successful
+
+index=ibm-bss008* NOT _changes _design instance-history resource_instance_history_2016
+
+acurl https://dedicatedcmstage-failover.cloudant.com/resource_instance_history_2016/_design/instance-history | jq .
