@@ -1,0 +1,35 @@
+https://github.ibm.com/Watson-and-Cloud-Platform-Support/Cloudant-Support/blob/master/Order_Tracking.md#cluster-decommission-request-1
+
+1 step:https://github.com/cloudant/ops/blob/master/scripts/users-on-cluster
+ Run sh users-on-cluster.sh <CLUSTER_NAME> > cluster_users
+ 
+2. https://github.ibm.com/Watson-and-Cloud-Platform-Support/Cloudant-Support/blob/master/Scripts/users-info.sh
+example vi users-info.sh
+provide permission to the file
+chmod + x users-info.sh
+run sh users-info.sh cluster_users  [the file, cluster_users, is the output of the above command]
+
+3. If there are several user accounts to be deleted from the cluster, follow the steps below - involves two scripts.
+Download the delete-user.sh script from,
+https://github.ibm.com/Watson-and-Cloud-Platform-Support/Cloudant-Support/blob/master/Scripts/delete-user.sh	
+Provide permission 
+chmod + x delete-user.sh	
+run sh delete-user.sh users_list
+
+create a github issue 
+https://github.ibm.com/cloudant/infra/issues/1917
+
+example of how the decom process with infra when creating a github issue
+{
+  "due": "2020-07-14",
+  "approved": true,
+  "crn": null,
+  "status": "completed",
+  "status_description": "cluster fully decommissioned",
+  "cluster": {
+    "name": "ibm-cdsx002",
+    "provider": "softlayer",
+    "account": "default"
+  },
+  "history": []
+}
