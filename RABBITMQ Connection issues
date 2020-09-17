@@ -1,0 +1,53 @@
+If a customer is facing this:
+I have a RMQ instance that's currently unreachable
+ff4e2c06-8109-400e-8525-2b3108e76707.brjdfmfw09op3teml03g.databases.appdomain.cloud:32680
+An error occurred during a connection to ff4e2c06-8109-400e-8525-2b3108e76707.
+brjdfmfw09op3teml03g.databases.appdomain.cloud:32680. PR_END_OF_FILE_ERROR
+
+we can check https connections, if's high number considering that https should only be used to access the UI or collect some metrics
+check if there is any leaking connections on their side. We kill any idle connection after 5 min so they must be issuing keep alive as well
+for https is 3x1024, for the rest 3x20000
+
+We can check these and see if the connection is increasing instead of decreasing
+
+i exec c-$ID-m-0 -c mgmt -- curl http://localhost:9901/stats | grep cluster.rmq_http_ssl.circuit_breakers.default.cx_open
+
+Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 34967    0 34967    0     0  2251k     cluster.rmq_http_ssl.circuit_breakers.default.cx_open: 1
+ 0 --:--:-- --:--:-- --:--:-- 2439k
+ 
+
+The result will tell you if there is something wrong with the https connections, in this case the value is 1 
+meaning envoy is blocking connections. Then you can check the number with:
+
+i exec c-$ID-m-0 -c mgmt -- curl http://localhost:9901/stats | grep cluster.rmq_http_ssl.upstream_cx_active
+will show the number of  connections 
+
+Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0cluster.rmq_http_ssl.upstream_cx_active: 1024
+ 
+100 35011    0 35011    0     0  5451k      0 --:--:-- --:--:-- --:--:-- 5698k
+
+couple of things to try 
+
+reset the connection you can do i rqrr will perform a rolling restart of the nodes
+
+if the above does not work try 
+icdctl cdb-execute envoy_restart
+
+then run this again and check the result:
+i exec c-$ID-m-0 -c mgmt -- curl http://localhost:9901/stats | grep cluster.rmq_http_ssl.upstream_cx_active
+
+Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0cluster.rmq_http_ssl.upstream_cx_active: 14
+100 34339    0 34339    0     0  2920k      0 --:--:-- --:--:-- --:--:-- 3048k
+
+➜  ~ 
+
+
+they need to analyse whatever code is calling the https endpoint and make sure they are closing the connections 
+when they are done. We need to limit connections to try and avoid the noisy neighbour issue. Also leaking connections 
+will impact their performance as well
