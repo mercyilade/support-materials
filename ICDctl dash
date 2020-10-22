@@ -1,0 +1,13 @@
+create a virtuale
+
+First step:
+
+Create a directory  mkdir icddb2
+
+cd cddb2
+
+create a virtual enviroment
+virtualenv icdctldb2
+
+activate it 
+source icdctldb2/bin/activate
