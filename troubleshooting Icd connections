@@ -6,3 +6,9 @@ i escs
 
 for Postgres
 i pcs
+
+for redis 
+i recs
+
+to launch  prometheus
+i prf
