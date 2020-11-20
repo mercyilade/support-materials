@@ -24,3 +24,44 @@ check for something like this in the logs "upload: '<stdin>' if it failed
 For Postgres first check this link:
 https://pages.github.ibm.com/ibm-cloud-databases/runbooks/guides/backup-failures/postgresql.html
 and see if it tallies as to what is the issue
+
+see if you can get something like this 
+upload: '<stdin>' -> 's3://17e6c4bf-9501-4ce3-a67c-e24295ddbd8f/17e6c4bf-9501-4ce3-a67c-e24295ddbd8f-20201114-002116.tar.lz4'  [part 3739, 50MB]
+52428800 of 52428800   100% in    0s    68.53 MB/s
+ 52428800 of 52428800   100% in    1s    47.22 MB/s  done
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    An unexpected error has occurred.
+  Please try reproducing the error using
+  the latest s3cmd code from the git master
+  branch found at:
+    https://github.com/s3tools/s3cmd
+  and have a look at the known issues list:
+    https://github.com/s3tools/s3cmd/wiki/Common-known-issues-and-their-solutions
+  If the error persists, please report the
+  following lines (removing any private
+  info as necessary) to:
+   s3tools-bugs@lists.sourceforge.net
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Invoked as: /usr/local/bin/s3cmd --multipart-chunk-size-mb=50 -c /conf/mongodb/s3cmd.conf put - s3://17e6c4bf-9501-4ce3-a67c-e24295ddbd8f/17e6c4bf-9501-4ce3-a67c-e24295ddbd8f-20201114-002116.tar.lz4
+Problem: <class 'OSError: [Errno 14] Bad address
+S3cmd:   2.0.2
+python:   3.5.3 (default, Jul  9 2020, 13:00:10) 
+[GCC 6.3.0 20170516]
+Traceback (most recent call last):
+  File "/usr/local/bin/s3cmd", line 3092, in <module>
+    rc = main()
+  File "/usr/local/bin/s3cmd", line 3001, in main
+    rc = cmd_func(args)
+  File "/usr/local/bin/s3cmd", line 421, in cmd_object_put
+    response = s3.object_put(full_name, uri_final, extra_headers, extra_label = seq_label)
+  File "/usr/local/lib/python3.5/dist-packages/S3/S3.py", line 677, in object_put
+    return self.send_file_multipart(src_stream, headers, uri, size, extra_label)
+  File "/usr/local/lib/python3.5/dist-packages/S3/S3.py", line 1603, in send_file_multipart
+    upload.upload_all_parts(extra_label)
+  File "/usr/local/lib/python3.5/dist-packages/S3/MultiPart.py", line 127, in upload_all_parts
+    buffer = self.file_stream.read(self.chunk_size)
+OSError: [Errno 14] Bad address
