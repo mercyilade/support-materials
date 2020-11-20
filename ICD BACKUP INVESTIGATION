@@ -65,3 +65,19 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.5/dist-packages/S3/MultiPart.py", line 127, in upload_all_parts
     buffer = self.file_stream.read(self.chunk_size)
 OSError: [Errno 14] Bad address
+
+Bad address (in this context) indicates out of memory. I’d bump it a bunch and let it go again.
+
+
+icdctl get pod c-$ID-h-0 -o json | jq '.spec.containers | .[] | select(.name == "mgmt") | .resources.limits.memory'
+"512Mi"
+if out of memory we need to bump it up
+
+icdctl container-resource-overrides set --resource h --container mgmt --memory 2Gi
+
+then follow the other steps in this link
+https://pages.github.ibm.com/ibm-cloud-databases/runbooks/guides/backup-failures/mongodb.html
+
+then send this response to the customer 
+we've bumped up the memory on the backup node of your deployment, and initiated an on-demand backup. Hopefully that should take care of it for you! 
+
