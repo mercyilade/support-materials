@@ -1,0 +1,26 @@
+When a customer reports a backup is failing for Mongodb
+
+check if they have enough resources
+check if there is any notes when you check on the formation
+If it's a Mongodb failing check if there is an issue with the oplog size or mgmt memory
+ i logs c-$ID-h-0 -cmgmt --since=24h > Log1.txt
+➜i logs c-$ID-h-0 -cdb  --since=24h > Log2.txt 
+
+or 
+ i logs c-$ID-h-0 -cdb  --previous  > log2.txt    
+  i logs c-$ID-h-0 -cmgmt  --previous  > log2.txt   
+  
+  from Logdna:
+  'icdctl l -p h-0 -c mgmt
+
+or
+ icdctl l -p h-0 -c db
+
+check if there is any issue with files being shipped to COS
+check for something like this in the logs "upload: '<stdin>' if it failed 
+
+
+
+For Postgres first check this link:
+https://pages.github.ibm.com/ibm-cloud-databases/runbooks/guides/backup-failures/postgresql.html
+and see if it tallies as to what is the issue
