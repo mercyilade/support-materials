@@ -67,6 +67,9 @@ i prf
 
 i recs   redis formation
 
+for elasticsearch
+i escs
+
 Failed provisioning
 i recipe-fail the provision recipe this will allow you delete it
 
