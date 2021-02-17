@@ -33,16 +33,16 @@ check for db2diags for any smoking gun
 
 we can also check for console status if client is seeing 502 gateway error
 
-/opt/ibm/console/production/console-deploy-ops.sh status
+   sudo /opt/ibm/console/production/console-deploy-ops.sh status
 
 If you are having console issues you can recreate the console
-/opt/ibm/dsserver/bin/recreate.sh
+sudo /opt/ibm/dsserver/bin/recreate.sh
 
 
 
 db2 "select * from sysibm.sysdummy1"  which shows that the database can run basic queries
 
-/opt/ibm/dsserver/scripts/recovery/mgmt_health_check.pl will show health checks but only basic summary
+sudo /opt/ibm/dsserver/scripts/recovery/mgmt_health_check.pl will show health checks but only basic summary
 
 nc -zv db2w-zykwbyp.services.dal.bluemix.net 50000
 nc -zv db2w-zykwbyp.services.dal.bluemix.net 443  
