@@ -31,6 +31,11 @@ cd log
 check for db2diags for any smoking gun
 
 
+
+ask the customer to try this link :
+https://dashdb-txn-sbox-yp-dal09-08.services.dal.bluemix.net/console/
+
+
 we can also check for console status if client is seeing 502 gateway error
 
    sudo /opt/ibm/console/production/console-deploy-ops.sh status
