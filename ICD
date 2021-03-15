@@ -61,7 +61,7 @@ i check-scale   will tel you if there is any resources issue
 
 For rabbitmq 
 Run  i rqcs 
-
+i rqui  customer GUI
 Postgres check disk usage:
 i prf
 
