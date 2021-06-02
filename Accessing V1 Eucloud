@@ -43,7 +43,8 @@ we can also check for console status if client is seeing 502 gateway error
 If you are having console issues you can recreate the console
 sudo /opt/ibm/dsserver/bin/recreate.sh
 
-
+to restart:
+suod /opt/ibm/console/production/console-deploy-ops.sh restart
 
 db2 "select * from sysibm.sysdummy1"  which shows that the database can run basic queries
 
